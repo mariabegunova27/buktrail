@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Буктрейл | Банковские карты</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9F9F7;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { 
+            font-family: 'Merriweather', serif; 
+            olor: #2C5F2D; 
+        }
+
+        a { 
+            text-decoration: none; 
+            color: inherit; 
+            transition: 0.3s; 
+        }
+
+        ul { 
+            list-style: none; 
+        }
+
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
+
+        .icon { 
+            width: 24px; 
+            height: 24px; 
+            display: inline-block; 
+            vertical-align: middle; 
+        }
+
+        /* Шапка */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #2C5F2D;
+            font-family: 'Merriweather', serif;
+        }
+
+        .logo-icon {
+            width: 40px; 
+            height: 40px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+
+        .logo-icon img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            display: block; 
+        }
+
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+            align-items: center; 
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: #1F2937;
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+        }
+
+        .nav-links a:hover, 
+        .nav-links a.active { 
+            color: #97BC62; 
+        }
+
+        .auth-buttons { 
+            display: flex; 
+            gap: 12px; 
+            align-items: center; 
+        }
+
+        .btn-login {
+            background-color: #2C5F2D; 
+            color: white !important;
+            padding: 10px 24px; 
+            border-radius: 30px;
+            font-weight: 600;
+            border: 2px solid #2C5F2D;
+        }
+
+        .btn-login:hover { 
+            background-color: #97BC62; 
+            border-color: #97BC62; 
+        }
+
+        /* Основная страница */
+        .cards-page { 
+            padding: 140px 0 80px; 
+            min-height: calc(100vh - 300px); 
+        }
+
+        .page-header {
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            margin-bottom: 30px; 
+            flex-wrap: wrap; gap: 15px;
+        }
+
+        .page-title { 
+            font-size: 2rem; 
+            margin: 0; 
+        }
+
+        .btn-back {
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            background: none; 
+            border: 2px solid #2C5F2D; 
+            color: #2C5F2D;
+            padding: 10px 20px; 
+            border-radius: 30px;
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+
+        .btn-back:hover { 
+            background: #2C5F2D; 
+            color: white; 
+        }
+
+        .btn-add {
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            background: #2C5F2D; 
+            color: white; 
+            border: none;
+            padding: 12px 28px; 
+            border-radius: 30px;
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-add:hover { 
+            background: #97BC62; 
+            transform: translateY(-2px); 
+        }
+
+        /* Список карт */
+        .cards-list { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+        }
+
+        .card-item {
+            background: #FFFFFF; 
+            border-radius: 20px; 
+            padding: 25px;
+            border: 2px solid rgba(151, 188, 98, 0.3);
+            box-shadow: 0 10px 30px rgba(44, 95, 45, 0.08);
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            flex-wrap: wrap; 
+            gap: 20px; 
+            transition: 0.3s;
+        }
+
+        .card-item:hover { 
+            border-color: #97BC62; 
+            transform: translateY(-3px); 
+        }
+        
+        .card-main { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; flex: 1; 
+            min-width: 200px; 
+        }
+
+        .card-logo {
+            width: 60px; 
+            height: 40px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 8px; 
+            color: white; font-weight: 700; 
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .card-logo.visa { 
+            background: 
+            linear-gradient(135deg, #1a1f71, #0d47a1); 
+        }
+
+        .card-logo.mastercard { 
+            background: linear-gradient(135deg, #eb001b, #f79e1b); 
+        }
+
+        .card-logo.mir { 
+            background: linear-gradient(135deg, #0066cc, #00a651); 
+        }
+        
+        .card-details h3 { 
+            font-size: 1.3rem; 
+            margin-bottom: 5px; 
+            color: #2C5F2D; 
+        }
+
+        .card-number { 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            letter-spacing: 2px; 
+            margin-bottom: 8px; 
+            font-family: monospace;
+        }
+
+        .card-holder { 
+            color: #6B7280;
+            font-size: 0.95rem; 
+            margin-bottom: 5px; 
+        }
+
+        .card-expiry { 
+            color: #6B7280; 
+            font-size: 0.9rem; 
+        }
+        
+        .card-status {
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px;
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            font-weight: 500;
+        }
+
+        .card-status.active { 
+            background: #E8F5E9; 
+            color: #2C5F2D; 
+        }
+
+        .card-status.expired { 
+            background: #FFEBEE; 
+            color: #C62828; 
+        }
+        
+        .card-actions { 
+            display: flex; 
+            gap: 10px; 
+        }
+
+        .btn-delete {
+            background: none; 
+            border: 2px solid #EF4444; 
+            color: #EF4444;
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            font-weight: 600;
+            cursor: pointer; 
+            transition: 0.3s; 
+            display: inline-flex;
+            align-items: center; 
+            gap: 6px; font-size: 0.9rem;
+        }
+
+        .btn-delete:hover { 
+            background: #EF4444; 
+            color: white; 
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0;
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.5);
+            z-index: 2000; 
+            align-items: center; 
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active { 
+            display: flex; 
+        }
+
+        .modal-content {
+            background: white; 
+            border-radius: 24px; 
+            padding: 30px;
+            max-width: 500px; 
+            width: 100%;
+            border: 2px solid rgba(151, 188, 98, 0.3);
+            box-shadow: 0 20px 60px rgba(44, 95, 45, 0.2);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { 
+                opacity: 0; 
+                transform: translateY(-20px); 
+            }
+            to {
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .modal-header {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            margin-bottom: 25px; 
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .modal-title { 
+            font-size: 1.5rem;
+             margin: 0; 
+        }
+
+        .modal-close {
+            background: none; 
+            border: none; 
+            font-size: 1.5rem;
+            cursor: pointer; 
+            color: #6B7280; 
+            transition: 0.2s;
+            width: 32px; 
+            height: 32px; 
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover { 
+            background: #f3f4f6; 
+            color: #2C5F2D; 
+        }
+        
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+
+        .form-group label {
+            display: block; 
+            font-size: 0.9rem; 
+            color: #2C5F2D;
+            margin-bottom: 8px; 
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 1px solid #e5e7eb;
+            border-radius: 10px; 
+            font-size: 1rem; 
+            font-family: 'Inter', sans-serif;
+            background: #F9F9F7; 
+            transition: 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: 2px solid #97BC62; 
+            border-color: transparent;
+            background: white;
+        }
+
+        .form-row { 
+            display: flex; 
+            gap: 15px; 
+        }
+
+        .form-row .form-group { 
+            flex: 1;
+        }
+        
+        .form-hint {
+            font-size: 0.8rem; 
+            color: #6B7280; 
+            margin-top: 5px;
+        }
+        
+        .modal-actions {
+            display: flex; 
+            gap: 12px; 
+            justify-content: flex-end;
+            margin-top: 25px; 
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn-cancel {
+            background: none; 
+            border: 2px solid #6B7280; 
+            color: #6B7280;
+            padding: 10px 24px; 
+            border-radius: 30px; 
+            font-weight: 600;
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+
+        .btn-cancel:hover { 
+            background: #6B7280; 
+            color: white; 
+        }
+
+        .btn-submit {
+            background: #2C5F2D; 
+            color: white; 
+            border: none;
+            padding: 10px 24px; 
+            border-radius: 30px; 
+            font-weight: 600;
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover { 
+            background: #97BC62; 
+        }
+
+        .btn-submit:disabled {
+            background: #9CA3AF; 
+            cursor: not-allowed; 
+            transform: none;
+        }
+
+        /* Пустое состояние */
+        .empty-state {
+            text-align: center; 
+            padding: 60px 20px;
+            color: #6B7280;
+        }
+
+        .empty-state img {
+            width: 120px; 
+            height: 120px; 
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .empty-state p { 
+            font-size: 1.1rem; 
+            margin-bottom: 20px; 
+        }
+
+        /* Подвал */
+        footer {
+            background-color: #2C5F2D; 
+            color: white;
+            padding: 60px 0 40px; 
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid; 
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px; 
+            margin-bottom: 60px; 
+            margin-left: 285px;
+        }
+
+        .footer-brand h3 { 
+            color: white; 
+            font-size: 1.8rem; 
+            margin-bottom: 20px; 
+        }
+
+        .footer-brand p { 
+            color: rgba(255,255,255,0.7); 
+            max-width: 300px; 
+            margin-bottom: 20px; 
+        }
+
+        .contact-info { 
+            color: rgba(255,255,255,0.8); 
+        }
+
+        .contact-info p { 
+            margin-bottom: 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+
+        .contact-info img { 
+            width: 20px; 
+            height: 20px; 
+        }
+
+        .footer-col h4 { 
+            color: #97BC62; 
+            margin-bottom: 20px; 
+            font-size: 1.1rem; 
+        }
+
+        .footer-col ul li { 
+            margin-bottom: 12px; 
+        }
+
+        .footer-col ul li a { 
+            color: rgba(255,255,255,0.8); 
+        }
+
+        .footer-col ul li a:hover { 
+            color: white; 
+            padding-left: 5px; 
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px; 
+            text-align: center;
+            color: rgba(255,255,255,0.5); 
+            font-size: 0.9rem;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav-wrapper { 
+                flex-direction: column; 
+                height: auto; 
+                padding: 15px 0; 
+            }
+
+            .nav-links { 
+                flex-wrap: wrap; 
+                justify-content: center; 
+                gap: 15px; 
+            }
+
+            .footer-grid { 
+                grid-template-columns: 1fr 1fr;
+                margin-left: 0; 
+            }
+
+            .card-item { 
+                flex-direction: column; 
+                align-items: flex-start; 
+            }
+
+            .card-actions { 
+                width: 100%; 
+                justify-content: flex-end; 
+            }
+
+            .form-row { 
+                flex-direction: column; 
+                gap: 0; 
+            }
+        }
+        @media (max-width: 480px) {
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+            }
+
+            .page-header { 
+                flex-direction: column; 
+                align-items: flex-start; 
+            }
+
+            .modal-content { 
+                padding: 20px; 
+                margin: 10px; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Шапка -->
+<header>
+    <div class="container nav-wrapper">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"><img src="img/logo.jpg" alt="Логотип"></div>
+            Буктрейл
+        </a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="about.html"><img src="img/icon-aboutus.jpg" class="icon" alt="О нас">О нас</a></li>
+                <li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование">Бронирование</a></li>
+                <li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции">Акции</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="profile.html" class="btn-login">
+                <img src="img/icon-user.png" class="icon" style="filter:brightness(0) invert(1);" alt="">
+                Профиль
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Основной контент -->
+<main class="cards-page">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">💳 Мои карты</h1>
+            <a href="profile.html" class="btn-back">
+                <img src="img/icon-back.png" class="icon" alt="←"> Назад
+            </a>
+        </div>
+        
+        <div class="cards-list" id="cardsList">
+            <!-- Карты добавляются через JS -->
+        </div>
+        
+        <button class="btn-add" id="openModal">
+            <img src="img/icon-plus.png" class="icon" style="filter:brightness(0) invert(1);" alt="+">
+            Добавить карту
+        </button>
+    </div>
+</main>
+
+<!-- Модальное окно -->
+<div class="modal" id="cardModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Добавить карту</h2>
+            <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <form id="addCardForm">
+            <div class="form-group">
+                <label for="cardNumber">Номер карты *</label>
+                <input type="text" id="cardNumber" placeholder="1111 2222 3333 4444" 
+                        maxlength="19" pattern="[0-9 ]{19}" required>
+                <div class="form-hint">16 цифр, формат: 0000 0000 0000 0000</div>
+            </div>
+            <div class="form-group">
+                <label for="cardHolder">Имя держателя (латиницей) *</label>
+                <input type="text" id="cardHolder" placeholder="IVAN IVANOV" 
+                        pattern="[A-Za-z\s]+" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cardExpiry">Срок действия *</label>
+                    <input type="month" id="cardExpiry" required>
+                </div>
+                <div class="form-group">
+                    <label for="cardCvv">CVV *</label>
+                    <input type="text" id="cardCvv" placeholder="123" 
+                            maxlength="3" pattern="[0-9]{3}" required>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" id="cancelBtn">Отмена</button>
+                <button type="submit" class="btn-submit">Добавить карту</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Подвал -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Буктрейл</h3>
+                <p>Делитесь книгами с другими. Читайте больше, тратьте меньше.</p>
+                <div class="contact-info">
+                    <p><img src="img/icon-phone.png" alt=""> 8 (980) 564-24-79</p>
+                    <p><img src="img/icon-email.png" alt=""> booktrail62@mail.ru</p>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="booking.html">Бронирование</a></li>
+                    <li><a href="sales.html">Акции</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <ul>
+                    <li><a href="https://vk.com">ВКонтакте</a></li>
+                    <li><a href="https://telegram.org">Telegram</a></li>
+                    <li><a href="mailto:booktrail62@mail.ru">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Буктрейл. Все права защищены.
+        </div>
+    </div>
+</footer>
+
+<script>
+    (function() {
+        // Хранилище карт (в реальном проекте — запрос к серверу)
+        let cards = JSON.parse(localStorage.getItem('booktrail_cards')) || [
+            { 
+                id: 1, 
+                number: '4111222233334242',  // Visa: начинается с 4
+                type: 'visa', 
+                holder: 'MARIA BEGUNOVA', 
+                expiry: '2028-12', 
+                active: true 
+            },
+            { 
+                id: 2, 
+                number: '5222555566667890',  // MasterCard: начинается с 5
+                type: 'mastercard', 
+                holder: 'MARIA BEGUNOVA', 
+                expiry: '2024-01', 
+                active: false 
+            },
+            { 
+                id: 3, 
+                number: '2333888899991234',  // Мир: начинается с 2
+                type: 'mir', 
+                holder: 'MARIA BEGUNOVA', 
+                expiry: '2027-06', 
+                active: true 
+            }
+        ];
+
+        // DOM элементы
+        const cardsList = document.getElementById('cardsList');
+        const modal = document.getElementById('cardModal');
+        const openModal = document.getElementById('openModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const addCardForm = document.getElementById('addCardForm');
+        const cardNumberInput = document.getElementById('cardNumber');
+
+        // Форматирование номера карты: добавление пробелов каждые 4 цифры
+        function formatCardNumber(value) {
+            return value
+                .replace(/\D/g, '')           // Удаляем всё кроме цифр
+                .slice(0, 16)                  // Оставляем максимум 16 цифр
+                .replace(/(.{4})/g, '$1 ')     // Добавляем пробел после каждых 4 цифр
+                .trim();                       // Убираем последний пробел
+        }
+
+        // Определение типа карты по первым 4 цифрам
+        function getCardType(firstFour) {
+            const types = { '1111': 'visa', '2222': 'mastercard', '3333': 'mir' };
+            return types[firstFour] || 'unknown';
+        }
+
+        // Проверка, активна ли карта (срок не истёк)
+        function isCardActive(expiry) {
+            const [year, month] = expiry.split('-').map(Number);
+            const now = new Date();
+            const expiryDate = new Date(year, month); // месяц в JS с 0
+            return expiryDate > now;
+        }
+
+        // Маскировка номера: **** **** **** 4242
+        function maskCardNumber(number) {
+            const clean = number.replace(/\s/g, '');
+            return '•••• •••• •••• ' + clean.slice(-4);
+        }
+
+        // Отображение логотипа карты
+        function getCardLogo(type) {
+            const logos = {
+                visa: 'VISA',
+                mastercard: 'MC',
+                mir: 'МИР'
+            };
+            return logos[type] || 'CARD';
+        }
+
+        // Рендеринг списка карт
+        function renderCards() {
+            if (cards.length === 0) {
+                cardsList.innerHTML = `
+                    <div class="empty-state">
+                        <img src="img/icon-empty-cards.png" alt="Нет карт" 
+                                onerror="this.style.display='none'">
+                        <p>У вас пока нет привязанных карт</p>
+                        <button class="btn-add" onclick="document.getElementById('openModal').click()">
+                            + Добавить первую карту
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            cardsList.innerHTML = cards.map(card => {
+                const isActive = isCardActive(card.expiry);
+                const [expYear, expMonth] = card.expiry.split('-');
+                const expiryFormatted = `${expMonth}.${expYear}`;
+                
+                return `
+                    <div class="card-item" data-id="${card.id}">
+                        <div class="card-main">
+                            <div class="card-logo ${card.type}">
+                                ${getCardLogo(card.type)}
+                            </div>
+                            <div class="card-details">
+                                <h3>${card.holder}</h3>
+                                <div class="card-number">${maskCardNumber(card.number)}</div>
+                                <div class="card-holder">Держатель: ${card.holder}</div>
+                                <div class="card-expiry">Срок: ${expiryFormatted}</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:15px;flex-wrap:wrap;">
+                            <span class="card-status ${isActive ? 'active' : 'expired'}">
+                                ${isActive ? '✓ Активна' : '✗ Срок истёк'}
+                            </span>
+                            <button class="btn-delete" onclick="deleteCard(${card.id})">
+                                <img src="img/icon-delete.png" class="icon" alt="🗑️">
+                                Удалить
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Удаление карты
+        window.deleteCard = function(id) {
+            if (confirm('Вы уверены, что хотите удалить эту карту?')) {
+                cards = cards.filter(c => c.id !== id);
+                saveCards();
+                renderCards();
+            }
+        };
+
+        // Сохранение в localStorage
+        function saveCards() {
+            localStorage.setItem('booktrail_cards', JSON.stringify(cards));
+        }
+
+        // Открытие/закрытие модального окна
+        function openModalFn() { modal.classList.add('active'); }
+        function closeModalFn() { 
+            modal.classList.remove('active'); 
+            addCardForm.reset(); 
+        }
+
+        openModal.addEventListener('click', openModalFn);
+        closeModal.addEventListener('click', closeModalFn);
+        cancelBtn.addEventListener('click', closeModalFn);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModalFn();
+        });
+
+        // Форматирование ввода номера карты
+        cardNumberInput.addEventListener('input', (e) => {
+            e.target.value = formatCardNumber(e.target.value);
+        });
+
+        // Валидация CVV — только цифры
+        document.getElementById('cardCvv').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3);
+        });
+
+        // Обработка отправки формы
+        addCardForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const numberRaw = cardNumberInput.value.replace(/\s/g, '');
+            if (numberRaw.length !== 16) {
+                alert('Номер карты должен содержать 16 цифр');
+                return;
+            }
+            
+            const firstFour = numberRaw.slice(0, 4);
+            const cardType = getCardType(firstFour);
+            
+            if (cardType === 'unknown') {
+                alert('Не удалось определить тип карты. Проверьте первые 4 цифры номера.');
+                return;
+            }
+
+            const newCard = {
+                id: Date.now(),
+                number: numberRaw,
+                type: cardType,
+                holder: document.getElementById('cardHolder').value.toUpperCase(),
+                expiry: document.getElementById('cardExpiry').value,
+                active: true
+            };
+
+            cards.unshift(newCard); // Добавляем в начало списка
+            saveCards();
+            renderCards();
+            closeModalFn();
+            
+            // Показываем уведомление
+            alert('✅ Карта успешно добавлена!');
+        });
+
+        // Инициализация
+        renderCards();
+    })();
+</script>
+</body>
+</html>

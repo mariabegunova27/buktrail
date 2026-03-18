@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Буктрейл | Обмен и аренда книг</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #F9F9F7;
+        color: #1F2937;
+        line-height: 1.6;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    h1, h2, h3 {
+        font-family: 'Merriweather', serif;
+        color: #2C5F2D;
+    }
+
+    a { 
+        text-decoration: none; 
+        color: inherit; 
+        transition: 0.3s; 
+    }
+
+    ul { 
+        list-style: none; 
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
+
+    /* Иконки */
+    .icon {
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+    }
+
+    .icon-large {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* Шапка */
+    header {
+        background: rgba(255, 255, 255, 0.98);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        backdrop-filter: blur(10px);
+    }
+
+    .nav-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+        padding: 0 16px;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2C5F2D;
+        font-family: 'Merriweather', serif;
+        flex-shrink: 0;
+    }
+
+    .logo-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    /* Мобильное меню */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 5px;
+        z-index: 1001;
+    }
+
+    .hamburger span {
+        width: 24px;
+        height: 2px;
+        background: #2C5F2D;
+        border-radius: 2px;
+        transition: 0.3s;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-left: 40px;
+    }
+
+    .nav-links a {
+        font-weight: 500;
+        color: #1F2937;
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+        color: #97BC62;
+    }
+
+    .btn-login {
+        background-color: #2C5F2D;
+        color: white !important;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .btn-login:hover {
+        background-color: #97BC62;
+    }
+
+    /* Баннер */
+    .hero {
+        position: relative;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 70px;
+        padding: 40px 16px;
+        overflow: hidden;
+    }
+
+    .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('img/banner.jpg');
+        background-size: cover;
+        background-position: center;
+        z-index: -2;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(249,249,247,0.95));
+        z-index: -1;
+    }
+
+    .hero-content {
+        max-width: 700px;
+        width: 100%;
+        animation: fadeIn 1.2s ease-out;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.8rem, 5vw, 3.5rem);
+        margin-bottom: 16px;
+        line-height: 1.2;
+        color: #1a3c1b;
+    }
+
+    .hero p {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        color: #1F2937;
+        margin-bottom: 32px;
+        font-weight: 300;
+    }
+
+    /* Форма поиска */
+    .search-container {
+        background: #FFFFFF;
+        padding: 16px;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(44, 95, 45, 0.1);
+        display: flex;
+        gap: 12px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .search-field {
+        flex: 1 1 140px;
+        min-width: 120px;
+    }
+
+    .search-field label {
+        display: block;
+        font-size: 0.75rem;
+        color: #6B7280;
+        margin-bottom: 4px;
+        font-weight: 600;
+    }
+
+    .search-field input,
+    .search-field select {
+        width: 100%;
+        border: 1px solid #e5e7eb;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        color: #1F2937;
+        background: #FFFFFF;
+        outline: none;
+        font-family: 'Inter', sans-serif;
+        border-radius: 8px;
+        appearance: none;
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 30px;
+    }
+
+    .search-field select {
+        cursor: pointer;
+        color: #6B7280;
+    }
+
+    .btn-search {
+        background-color: #2C5F2D;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .btn-search:hover {
+        background-color: #97BC62;
+    }
+
+    .btn-reset {
+        background: transparent;
+        border: 2px solid #2C5F2D;
+        color: #2C5F2D;
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: 0.3s;
+        white-space: nowrap;
+    }
+
+    .btn-reset:hover {
+        background: #2C5F2D;
+        color: white;
+    }
+
+    .no-results {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #6B7280;
+        padding: 40px 20px;
+        grid-column: 1 / -1;
+    }
+
+    /* Секция доверия */
+    .trust-section {
+        padding: 60px 0;
+        background-color: #F9F9F7;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 0 16px;
+    }
+
+    .section-title h2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 8px;
+    }
+
+    .section-title p {
+        color: #6B7280;
+        font-size: 1rem;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 0 16px;
+    }
+
+    .stat-card {
+        background: #FFFFFF;
+        padding: 30px 16px;
+        border-radius: 16px;
+        text-align: center;
+        border: 2px solid rgba(151, 188, 98, 0.3);
+        box-shadow: 0 8px 25px rgba(44, 95, 45, 0.08);
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-card:hover {
+        border-color: #97BC62;
+        transform: translateY(-4px);
+        box-shadow: 0 16px 35px rgba(44, 95, 45, 0.12);
+    }
+
+    .stat-icon img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 12px;
+    }
+
+    .stat-number {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
+        color: #2C5F2D;
+        font-family: 'Merriweather', serif;
+        display: block;
+        margin-bottom: 6px;
+        line-height: 1;
+    }
+
+    .stat-label {
+        color: #6B7280;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    /* Популярные книги */
+    .catalog-section {
+        padding: 60px 0;
+        background-color: #ffffff;
+    }
+
+    .catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        margin-top: 32px;
+        padding: 0 16px;
+    }
+
+    .book-card {
+        background: #FFFFFF;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(44, 95, 45, 0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .book-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 35px rgba(44, 95, 45, 0.15);
+    }
+
+    .book-image {
+        aspect-ratio: 3/4;
+        width: 100%;
+        overflow: hidden;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .book-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+    .book-card:hover .book-image img {
+        transform: scale(1.03);
+    }
+
+    .book-status {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background-color: #2C5F2D;
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.3px;
+        z-index: 2;
+        text-transform: uppercase;
+    }
+
+    .book-card[data-status="забронирована"] .book-status {
+        background-color: #D4A373;
+    }
+
+    .book-info {
+        padding: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .book-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        font-family: 'Merriweather', serif;
+        color: #2C5F2D;
+        margin-bottom: 4px;
+        line-height: 1.3;
+    }
+
+    .book-author {
+        font-size: 0.9rem;
+        color: #6B7280;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    .book-desc {
+        font-size: 0.85rem;
+        color: #4B5563;
+        margin-bottom: 16px;
+        line-height: 1.4;
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .book-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        gap: 10px;
+    }
+
+    .book-rating {
+        background-color: #F9F9F7;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #2C5F2D;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .btn-book {
+        background-color: #2C5F2D;
+        color: white;
+        border: none;
+        padding: 7px 14px;
+        border-radius: 24px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        white-space: nowrap;
+    }
+
+    .btn-book:hover {
+        background-color: #97BC62;
+    }
+
+    .btn-book:disabled {
+        background-color: #9CA3AF;
+        cursor: not-allowed;
+    }
+
+    /* Новости */
+    .news-section {
+        padding: 60px 0;
+        background-color: #F9F9F7;
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        padding: 0 16px;
+    }
+
+    .news-card {
+        background: #FFFFFF;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .news-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 35px rgba(44, 95, 45, 0.12);
+    }
+
+    .news-image {
+        aspect-ratio: 16/9;
+        background-color: #eee;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .news-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.5s;
+    }
+
+    .news-card:hover .news-image img {
+        transform: scale(1.05);
+    }
+
+    .news-info {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .news-title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        color: #2C5F2D;
+        font-family: 'Merriweather', serif;
+    }
+
+    .news-desc {
+        font-size: 0.9rem;
+        color: #6B7280;
+        margin-bottom: 16px;
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .btn-read {
+        color: #D4A373;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        align-self: flex-start;
+    }
+
+    .btn-read:hover {
+        gap: 8px;
+        color: #2C5F2D;
+    }
+
+    /* Подвал */
+    footer {
+        background-color: #2C5F2D;
+        color: white;
+        padding: 80px 0 40px;
+        margin-top: 60px;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 60px;
+        margin-left: 285px;
+    }
+
+    .footer-brand h3 {
+        color: white;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .footer-brand p {
+        color: rgba(255,255,255,0.7);
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    .contact-info {
+        color: rgba(255,255,255,0.8);
+    }
+
+    .contact-info p {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contact-info img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .footer-col h4 {
+        color: #97BC62;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+        color: rgba(255,255,255,0.8);
+    }
+
+    .footer-col ul li a:hover {
+        color: white;
+        padding-left: 5px;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 30px;
+        text-align: center;
+        color: rgba(255,255,255,0.5);
+        font-size: 0.9rem;
+    }
+
+    /* Анимации */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Адаптивность */
+    /* Планшеты портретные и небольшие десктопы (≤1024px) */
+    @media (max-width: 1024px) {
+        .catalog-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .news-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .footer-brand {
+            grid-column: span 2;
+            text-align: center;
+        }
+        .contact-info p {
+            justify-content: center;
+        }
+    }
+
+    /* Планшеты малые (≤860px) */
+    @media (max-width: 860px) {
+        .nav-links {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 16px;
+            gap: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transform: translateY(-120%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 999;
+            margin-left: 0;
+        }
+        .nav-links.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .hamburger {
+            display: flex;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        .catalog-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .book-image {
+            aspect-ratio: 2/3;
+        }
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Мобильные устройства большие (≤540px) */
+    @media (max-width: 540px) {
+        .hero {
+            min-height: auto;
+            padding: 60px 16px 40px;
+            margin-top: 60px;
+        }
+        .hero h1 {
+            font-size: clamp(1.6rem, 6vw, 2.2rem);
+        }
+        .search-container {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 14px;
+        }
+        .search-field {
+            width: 100%;
+        }
+        .btn-search,
+        .btn-reset {
+            width: 100%;
+            justify-content: center;
+        }
+        .catalog-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .book-image {
+            aspect-ratio: 3/4;
+        }
+        .news-grid {
+            grid-template-columns: 1fr;
+        }
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 24px;
+        }
+        .footer-brand {
+            grid-column: span 1;
+        }
+        .contact-info p {
+            justify-content: center;
+        }
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    /* Мобильные устройства малые (≤414px) */
+    @media (max-width: 414px) {
+        .nav-wrapper {
+            height: 64px;
+            padding: 0 12px;
+        }
+        .logo {
+            font-size: 18px;
+            gap: 8px;
+        }
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+        }
+        .hero {
+            padding: 40px 12px 30px;
+        }
+        .hero h1 {
+            font-size: clamp(1.5rem, 7vw, 2rem);
+        }
+        .hero p {
+            font-size: 0.95rem;
+        }
+        .search-container {
+            padding: 12px;
+            border-radius: 14px;
+        }
+        .search-field input,
+        .search-field select {
+            padding: 9px 10px;
+            font-size: 0.9rem;
+        }
+        .btn-search,
+        .btn-reset {
+            padding: 11px 20px;
+            font-size: 0.95rem;
+        }
+        .section-title h2 {
+            font-size: 1.6rem;
+        }
+        .stat-number {
+            font-size: 2rem;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+        }
+        .book-title {
+            font-size: 1rem;
+        }
+        .book-author {
+            font-size: 0.85rem;
+        }
+        .book-desc {
+            font-size: 0.8rem;
+            -webkit-line-clamp: 2;
+        }
+        .book-footer {
+            flex-wrap: wrap;
+        }
+        .book-rating {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+        }
+        .btn-book {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+        .news-title {
+            font-size: 1rem;
+        }
+        .news-desc {
+            font-size: 0.85rem;
+            -webkit-line-clamp: 2;
+        }
+        .footer-brand h3 {
+            font-size: 1.3rem;
+        }
+        .contact-info p {
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+
+    /* Очень малые экраны (≤375px) */
+    @media (max-width: 375px) {
+        .container {
+            padding: 0 12px;
+        }
+        .hero h1 {
+            font-size: 1.4rem;
+        }
+        .search-field label {
+            font-size: 0.7rem;
+        }
+        .stat-card {
+            padding: 24px 12px;
+        }
+        .book-info {
+            padding: 14px;
+        }
+        .news-info {
+            padding: 16px;
+        }
+    }
+
+    /* Горизонтальная ориентация на мобильных */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .hero {
+            min-height: auto;
+            padding: 80px 16px 40px;
+        }
+        .nav-links {
+            top: 60px;
+        }
+    }
+
+    /* Улучшения для тач-устройств */
+    @media (hover: none) and (pointer: coarse) {
+        .btn-login,
+        .btn-search,
+        .btn-book,
+        .btn-reset,
+        .btn-read {
+            min-height: 44px;
+            min-width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-links a {
+            padding: 8px 0;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    /* Плавная прокрутка */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Убираем стандартные отступы у полей ввода на iOS */
+    input, select, textarea, button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+    }
+
+    /* Фокус для доступности */
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus {
+        outline: 2px solid #97BC62;
+        outline-offset: 2px;
+    }
+
+    /* Скрытие скроллбара для чистоты, но сохранение функционала */
+    .catalog-grid,
+    .news-grid {
+        scrollbar-width: thin;
+        scrollbar-color: #97BC62 #F9F9F7;
+    }
+    .catalog-grid::-webkit-scrollbar,
+    .news-grid::-webkit-scrollbar {
+        width: 6px;
+    }
+    .catalog-grid::-webkit-scrollbar-track,
+    .news-grid::-webkit-scrollbar-track {
+        background: #F9F9F7;
+    }
+    .catalog-grid::-webkit-scrollbar-thumb,
+    .news-grid::-webkit-scrollbar-thumb {
+        background-color: #97BC62;
+        border-radius: 3px;
+    }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+<header>
+    <div class="container nav-wrapper">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"><img src="img/logo.jpg" alt="Логотип Буктрейл"></div>
+            Буктрейл
+        </a>
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html"><img src="img/icon-aboutus.jpg" class="icon" alt="О нас">О нас</a></li>
+                <li></li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование"> Бронирование</a></li>
+                <li></li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+        <div id="authSection" class="auth-buttons"></div>
+    </div>
+</header>
+
+<!-- Баннер с формой поиска -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Оставьте свой след в мире книг</h1>
+        <p>Обменивайте, арендуйте и дарите книги легко. Найдите новую книгу или отдайте свою.</p>
+        <form class="search-container" id="searchForm">
+            <div class="search-field">
+                <label>Категория книги</label>
+                <select id="categoryFilter">
+                    <option value="">Все категории</option>
+                    <option value="художественная">Художественная</option>
+                    <option value="научная">Научная</option>
+                    <option value="business">Бизнес</option>
+                    <option value="detective">Детективы</option>
+                    <option value="fantasy">Фантастика</option>
+                    <option value="novel">Романы</option>
+                    <option value="children">Детская литература</option>
+                    <option value="poetry">Поэзия</option>
+                    <option value="history">История</option>
+                    <option value="psychology">Психология</option>
+                    <option value="art">Искусство</option>
+                    <option value="selfdev">Саморазвитие</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <label>Автор</label>
+                <input type="text" id="authorFilter" placeholder="Введите автора">
+            </div>
+            <div class="search-field">
+                <label>Название</label>
+                <input type="text" id="titleFilter" placeholder="Введите название">
+            </div>
+            <button type="submit" class="btn-search">Найти книги</button>
+        </form>
+        <!-- Кнопка сброса фильтров -->
+        <div style="text-align: center; margin-top: 15px;">
+            <button id="resetFilters" class="btn-reset">Сбросить фильтры</button>
+        </div>
+    </div>
+</section>
+
+    <!-- Популярные книги -->
+<section class="catalog-section fade-in">
+<div class="container">
+    <div class="section-title">
+    <h2>Популярные книги</h2>
+    <p>Доступны для обмена и аренды прямо сейчас</p>
+    </div>
+    <div class="catalog-grid" id="catalogGrid">
+    <!-- 1. Мастер и Маргарита -->
+    <div class="book-card" data-category="художественная" data-author="Булгаков" data-title="Мастер и Маргарита">
+        <div class="book-image">
+        <img src="img/bulgakov-master.webp" alt="Обложка Мастер и Маргарита">
+        </div>
+        <div class="book-status">Доступна</div>
+        <div class="book-info">
+        <div class="book-title">Мастер и Маргарита</div>
+        <div class="book-author">М. Булгаков</div>
+        <div class="book-desc">Классика русской литературы о любви, дьяволе и Москве 30-х.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.9 ★</span>
+            <button class="btn-book" onclick="openModal('Мастер и Маргарита')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 2. 1984 -->
+    <div class="book-card" data-category="фантастика" data-author="Оруэлл" data-title="1984">
+        <div class="book-image">
+        <img src="img/orwell-1984.webp" alt="Обложка 1984">
+        </div>
+        <div class="book-status">Доступна</div>
+        <div class="book-info">
+        <div class="book-title">1984</div>
+        <div class="book-author">Дж. Оруэлл</div>
+        <div class="book-desc">Культовая антиутопия о тоталитаризме и борьбе за свободу.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.8 ★</span>
+            <button class="btn-book" onclick="openModal('1984')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 3. Две твердыни  -->
+    <div class="book-card" data-category="фантастика" data-author="Толкин" data-title="Две твердыни">
+        <div class="book-image">
+        <img src="img/tolkien-strongholds.jpg" alt="Обложка Две твердыни">
+        </div>
+        <div class="book-status">Забронирована</div>
+        <div class="book-info">
+        <div class="book-title">Две твердыни</div>
+        <div class="book-author">Дж.Р.Р. Толкин</div>
+        <div class="book-desc">Роман, в котором мир Средиземья окончательно выходит из тени ожидания и вступает в открытую войну. </div>
+        <div class="book-footer">
+            <span class="book-rating">4.9 ★</span>
+            <button class="btn-book" onclick="openModal('Две твердыни')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 4. Преступление и наказание -->
+    <div class="book-card" data-category="художественная" data-author="Достоевский" data-title="Преступление и наказание">
+        <div class="book-image">
+        <img src="img/dostoevsky-crime.webp" alt="Обложка Преступление и наказание">
+        </div>
+        <div class="book-status">Доступна</div>
+        <div class="book-info">
+        <div class="book-title">Преступление и наказание</div>
+        <div class="book-author">Ф. Достоевский</div>
+        <div class="book-desc">Философский роман о морали, вине и искуплении.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.7 ★</span>
+            <button class="btn-book" onclick="openModal('Преступление и наказание')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 5. Великий Гэтсби  -->
+    <div class="book-card" data-category="романы" data-author="Фицджеральд" data-title="Великий Гэтсби">
+        <div class="book-image">
+        <img src="img/fitzgerald-gatsby.jpg" alt="Обложка Великий Гэтсби">
+        </div>
+        <div class="book-status">Доступна</div>
+        <div class="book-info">
+        <div class="book-title">Великий Гэтсби</div>
+        <div class="book-author">Ф. С. Фицджеральд</div>
+        <div class="book-desc"> История о человеке, который разбогател, но понял, что деньги не дают ему привилегий рожденных в элите.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.9 ★</span>
+            <button class="btn-book" onclick="openModal('Великий Гэтсби')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 6. Убить пересмешника -->
+    <div class="book-card" data-category="художественная" data-author="Ли" data-title="Убить пересмешника">
+        <div class="book-image">
+        <img src="img/lee-mockingbird.jpg" alt="Обложка Убить пересмешника">
+        </div>
+        <div class="book-status">Забронирована</div>
+        <div class="book-info">
+        <div class="book-title">Убить пересмешника</div>
+        <div class="book-author">Х. Ли</div>
+        <div class="book-desc">Роман о расизме и справедливости глазами ребёнка.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.8 ★</span>
+            <button class="btn-book" onclick="openModal('Убить пересмешника')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 7. Война и мир -->
+    <div class="book-card" data-category="историческая" data-author="Толстой" data-title="Война и мир">
+        <div class="book-image">
+        <img src="img/tolstoy-war-and-peace.jpg" alt="Обложка Война и мир">
+        </div>
+        <div class="book-status">Доступна</div>
+        <div class="book-info">
+        <div class="book-title">Война и мир</div>
+        <div class="book-author">Л. Толстой</div>
+        <div class="book-desc">Эпопея о русском обществе в эпоху наполеоновских войн.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.7 ★</span>
+            <button class="btn-book" onclick="openModal('Война и мир')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 8. Маленький принц -->
+    <div class="book-card" data-category="детская" data-author="Сент-Экзюпери" data-title="Маленький принц">
+        <div class="book-image">
+        <img src="img/exupery-prince.webp" alt="Обложка Маленький принц">
+        </div>
+        <div class="book-status">Доступна</div>
+        <div class="book-info">
+        <div class="book-title">Маленький принц</div>
+        <div class="book-author">А. Сент-Экзюпери</div>
+        <div class="book-desc">Философская сказка о дружбе и любви.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.9 ★</span>
+            <button class="btn-book" onclick="openModal('Маленький принц')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 9. Три товарища -->
+    <div class="book-card" data-category="художественная" data-author="Ремарк" data-title="Три товарища">
+        <div class="book-image">
+        <img src="img/remarque-fellow.jpg" alt="Обложка Три товарища">
+        </div>
+        <div class="book-status">Забронирована</div>
+        <div class="book-info">
+        <div class="book-title">Три товарища</div>
+        <div class="book-author">Э.М. Ремарк</div>
+        <div class="book-desc">Роман о дружбе и любви в послевоенной Германии.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.8 ★</span>
+            <button class="btn-book" onclick="openModal('Три товарища')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 10. Гордость и предубеждение -->
+    <div class="book-card" data-category="романы" data-author="Остин" data-title="Гордость и предубеждение">
+        <div class="book-image">
+        <img src="img/austen-pride.jpg" alt="Обложка  Гордость и предубеждение">
+        </div>
+        <div class="book-status">Доступна</div>
+        <div class="book-info">
+        <div class="book-title">Гордость и предубеждение</div>
+        <div class="book-author">Д. Остин</div>
+        <div class="book-desc"> Роман  о любви, свободе выбора и влиянии гордости и предубеждения на отношения. </div>
+        <div class="book-footer">
+            <span class="book-rating">4.6 ★</span>
+            <button class="btn-book" onclick="openModal('Гордость и предубеждение')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 11. Портрет Дориана Грея -->
+    <div class="book-card" data-category="художественная" data-author="Уайльд" data-title="Портрет Дориана Грея">
+        <div class="book-image">
+        <img src="img/wilde-dorian.webp" alt="Обложка Портрет Дориана Грея">
+        </div>
+        <div class="book-status">Доступна</div>
+        <div class="book-info">
+        <div class="book-title">Портрет Дориана Грея</div>
+        <div class="book-author">О. Уайльд</div>
+        <div class="book-desc">Загадочная история о вечной молодости и цене греха.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.8 ★</span>
+            <button class="btn-book" onclick="openModal('Портрет Дориана Грея')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- 12. Сто лет одиночества -->
+    <div class="book-card" data-category="магический реализм" data-author="Маркес" data-title="Сто лет одиночества">
+        <div class="book-image">
+        <img src="img/marquez-years.jpg" alt="Обложка Сто лет одиночества">
+        </div>
+        <div class="book-status">Доступна</div>
+        <div class="book-info">
+        <div class="book-title">Сто лет одиночества</div>
+        <div class="book-author">Г. Маркес</div>
+        <div class="book-desc">Семейная сага в стиле магического реализма.</div>
+        <div class="book-footer">
+            <span class="book-rating">4.9 ★</span>
+            <button class="btn-book" onclick="openModal('Сто лет одиночества')">Забронировать</button>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</section>
+
+<!-- Секция о доверии компании -->
+<section class="trust-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Нам доверяют</h2>
+            <p>Буктрейл — это сообщество читателей, которые делятся книгами</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <img src="img/icon-books.jpg" alt="Книги">
+                </div>
+                <span class="stat-number">1000+</span>
+                <span class="stat-label">КНИГ</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <img src="img/icon-exchange.jpg" alt="Обмены">
+                </div>
+                <span class="stat-number">500+</span>
+                <span class="stat-label">ОБМЕНОВ</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <img src="img/icon-readers.jpg" alt="Читатели">
+                </div>
+                <span class="stat-number">500+</span>
+                <span class="stat-label">ЧИТАТЕЛЕЙ</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Новости -->
+<section class="news-section">
+<div class="container">
+    <div class="section-title">
+        <h2>Новости</h2>
+        <p>Последние события из мира книг и нашего сообщества</p>
+    </div>
+
+    <div class="news-grid">
+        <!-- Новость 1 -->
+        <div class="news-card">
+            <div class="news-image">
+                <img src="img/news-1.jpg" alt="Открытие новой точки обмена в Рязани">
+            </div>
+            <div class="news-info">
+                <h3 class="news-title">Открытие новой точки обмена в Рязани</h3>
+                <p class="news-desc">Приглашаем всех читателей посетить нашу новую точку буккроссинга в центре города. Более 200 книг ждут вас!</p>
+            </div>
+        </div>
+
+        <!-- Новость 2 -->
+        <div class="news-card">
+            <div class="news-image">
+                <img src="img/news-2.jpg" alt="Акция: Приведи друга и получи скидку">
+            </div>
+            <div class="news-info">
+                <h3 class="news-title">Акция: Приведи друга и получи скидку</h3>
+                <p class="news-desc">Пригласите друга в Буктрейл и получите скидку 25% на аренду любой книги на месяц.</p>
+            </div>
+        </div>
+
+        <!-- Новость 3 -->
+        <div class="news-card">
+            <div class="news-image">
+                <img src="img/news-3.jpg" alt="Книжный клуб: встреча в субботу">
+            </div>
+            <div class="news-info">
+                <h3 class="news-title">Книжный клуб: встреча в воскресенье</h3>
+                <p class="news-desc">Обсуждаем роман "Мастер и Маргарита". Присоединяйтесь к обсуждению в нашу библиотеку.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Подвал сайта -->
+    <footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Буктрейл</h3>
+                <p>Делитесь книгами с другими. Читайте больше, тратьте меньше.</p>
+                <div class="contact-info">
+                    <p>
+                        <img src="img/icon-phone.png" alt="Телефон">
+                        8 (980) 564-24-79
+                    </p>
+                    <p>
+                        <img src="img/icon-email.png" alt="Email">
+                        booktrail62@mail.ru
+                    </p>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="booking.html">Бронирование</a></li>
+                    <li><a href="sales.html">Акции</a></li>
+                    <li><a href="catalog.html">Каталог книг</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <ul>
+                    <li><a href="https://m.vk.com">ВКонтакте</a></li>
+                    <li><a href="https://web.telegram.org">Telegram</a></li>
+                    <li><a href="https://mail.google.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Буктрейл. Все права защищены.
+        </div>
+    </div>
+</footer>
+
+<script>
+// Мобильное меню
+document.addEventListener('DOMContentLoaded', function() {
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+if (hamburger && navLinks) {
+    hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Закрытие меню при клике на ссылку
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+    
+    // Закрытие при клике вне меню
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-wrapper') && navLinks.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+// Плавное появление карточек при скролле
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.book-card, .news-card, .stat-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    observer.observe(card);
+});
+});
+    (function() {
+            // Поиск и фильтрация книг
+            const searchForm = document.getElementById('searchForm');
+            const categorySelect = document.getElementById('categoryFilter');
+            const authorInput = document.getElementById('authorFilter');
+            const titleInput = document.getElementById('titleFilter');
+            const catalogGrid = document.getElementById('catalogGrid');
+            const bookCards = Array.from(document.querySelectorAll('.book-card'));
+
+            // Создаем элемент для сообщения "ничего не найдено"
+            const noResultsMsg = document.createElement('div');
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = ' К сожалению, ничего не найдено. Попробуйте изменить запрос.';
+            noResultsMsg.style.display = 'none';
+            catalogGrid.appendChild(noResultsMsg);
+
+            function filterBooks() {
+                const category = categorySelect.value.trim().toLowerCase();
+                const author = authorInput.value.trim().toLowerCase();
+                const title = titleInput.value.trim().toLowerCase();
+
+                let visibleCount = 0;
+
+                bookCards.forEach(card => {
+                    const cardCategory = (card.dataset.category || '').toLowerCase();
+                    const cardAuthor = (card.dataset.author || '').toLowerCase();
+                    const cardTitle = (card.dataset.title || '').toLowerCase();
+
+                    let match = true;
+
+                    if (category && !cardCategory.includes(category) && cardCategory !== category) {
+                        // для категории можно использовать и точное, и частичное совпадение (по желанию)
+                        // оставим точное совпадение, как в select
+                        if (cardCategory !== category) match = false;
+                    }
+                    if (author && !cardAuthor.includes(author)) match = false;
+                    if (title && !cardTitle.includes(title)) match = false;
+
+                    if (match) {
+                        card.style.display = ''; // возвращаем стандартное отображение (block/flex)
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Показываем сообщение, если нет видимых карточек
+                if (visibleCount === 0) {
+                    noResultsMsg.style.display = 'block';
+                } else {
+                    noResultsMsg.style.display = 'none';
+                }
+            }
+
+            // Обработчик отправки формы
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                filterBooks();
+            });
+
+            // Кнопка сброса фильтров
+            const resetBtn = document.getElementById('resetFilters');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    categorySelect.value = '';
+                    authorInput.value = '';
+                    titleInput.value = '';
+                    filterBooks(); // показать все
+                });
+            }
+
+            // Инициализация: показываем все книги (скрываем сообщение)
+            filterBooks();
+        })();
+
+    (function() {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const authDiv = document.getElementById('authSection');
+        if (user) {
+            authDiv.innerHTML = `
+                <a href="profile.html" class="btn-login">${user.firstName || 'Личный кабинет'}</a>
+                <button class="btn-outline" id="logoutBtn">Выйти</button>
+            `;
+            document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                localStorage.removeItem('currentUser');
+                location.reload();
+            });
+        } else {
+            authDiv.innerHTML = `
+                <a href="login.html" class="btn-login">Вход</a>
+                <a href="register.html" class="btn-outline">Регистрация</a>
+            `;
+        }
+    })();
+</script>
+</body>
+</html>

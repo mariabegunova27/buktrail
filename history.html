@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Буктрейл | История бронирований</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9F9F7;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+            color: #2C5F2D;
+        }
+
+        a { 
+            text-decoration: none; 
+            color: inherit; 
+            transition: 0.3s; 
+        }
+
+        ul { 
+            list-style: none; 
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Шапка */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #2C5F2D;
+            font-family: 'Merriweather', serif;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: #1F2937;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #97BC62;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-login {
+            background-color: #2C5F2D;
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            border: 2px solid #2C5F2D;
+        }
+
+        .btn-login:hover {
+            background-color: #97BC62;
+            border-color: #97BC62;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #2C5F2D !important;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            border: 2px solid #2C5F2D;
+        }
+
+        .btn-outline:hover {
+            background-color: #2C5F2D;
+            color: white !important;
+        }
+
+        /* История */
+        .history-page {
+            padding: 140px 0 80px;
+            min-height: calc(100vh - 300px);
+        }
+
+        .history-page h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.8rem;
+        }
+
+        /* Карточка бронирования */
+        .booking-order {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(151, 188, 98, 0.3);
+            box-shadow: 0 10px 30px rgba(44, 95, 45, 0.08);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed #e5e7eb;
+            font-size: 1.1rem;
+        }
+
+        .order-code {
+            font-weight: 700;
+            color: #2C5F2D;
+            background: #F0F7E8;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .order-total {
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .order-total span {
+            color: #2C5F2D;
+            font-size: 1.3rem;
+            margin-left: 5px;
+        }
+
+        /* Элементы внутри заказа */
+        .order-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 20px;
+            background: #F9F9F7;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(151, 188, 98, 0.2);
+            transition: 0.2s;
+        }
+
+        .order-item:hover {
+            border-color: #97BC62;
+            box-shadow: 0 5px 15px rgba(44,95,45,0.1);
+        }
+
+        .item-photo {
+            width: 100px;
+            height: 140px;
+            background: #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e0e7d0;
+            color: #2C5F2D;
+            font-size: 2rem;
+        }
+
+        .item-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-details h4 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #2C5F2D;
+        }
+
+        .item-details p {
+            color: #4B5563;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .item-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 10px 0;
+        }
+
+        .item-meta div {
+            background: #FFFFFF;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid #97BC62;
+            font-size: 0.9rem;
+        }
+
+        .btn-repeat {
+            background: none;
+            border: 2px solid #2C5F2D;
+            color: #2C5F2D;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .btn-repeat:hover {
+            background: #2C5F2D;
+            color: white;
+        }
+
+        /* Пустое состояние */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: #FFFFFF;
+            border-radius: 30px;
+            border: 2px dashed #97BC62;
+            color: #6B7280;
+        }
+
+        .empty-state p {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .empty-state .icon-large {
+            font-size: 5rem;
+            opacity: 0.5;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: #2C5F2D;
+            color: white;
+            padding: 60px 0 40px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            margin-left: 285px;
+        }
+
+        .footer-brand h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer-col h4 {
+            color: #97BC62;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .nav-wrapper {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                margin: 10px 0;
+            }
+            .order-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .item-photo {
+                width: 80px;
+                height: 110px;
+            }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="img/logo.jpg" alt="Логотип">
+                </div>
+                Буктрейл
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="about.html"><img src="img/icon-aboutus.jpg" class="icon" alt="О нас">О нас</a></li>
+                    <li></li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование"> Бронирование</a></li>
+                    <li></li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn-login">Вход</a>
+                <a href="register.html" class="btn-outline">Регистрация</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент: история бронирований -->
+    <main class="history-page">
+        <div class="container">
+            <h1>История бронирований</h1>
+            <div id="bookings-container">
+                <!-- Динамически заполняется через JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>Буктрейл</h3>
+                    <p>Делитесь книгами с другими. Читайте больше, тратьте меньше.</p>
+                    <div class="contact-info">
+                        <p>
+                            <img src="img/icon-phone.png" alt="Телефон">
+                            8 (980) 564-24-79
+                        </p>
+                        <p>
+                            <img src="img/icon-email.png" alt="Email">
+                            booktrail62@mail.ru
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="booking.html">Бронирование</a></li>
+                        <li><a href="catalog.html">Каталог книг</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><a href="https://m.vk.com">ВКонтакте</a></li>
+                        <li><a href="https://web.telegram.org">Telegram</a></li>
+                        <li><a href="https://mail.google.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Буктрейл. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+    // Данные истории бронирований
+    const bookings = [
+        {
+            code: 'BK-001',
+            total: 450,
+            items: [
+                {
+                    title: 'Мастер и Маргарита',
+                    author: 'Михаил Булгаков',
+                    photo: 'img/bulgakov-master.webp', 
+                    branch: 'Центральный',
+                    dateStart: '2026-03-01',
+                    dateEnd: '2026-03-05',
+                    days: 4,
+                    cost: 200
+                },
+                {
+                    title: '1984',
+                    author: 'Джордж Оруэлл',
+                    photo: 'img/orwell-1984.webp',
+                    branch: 'Центральный',
+                    dateStart: '2026-03-01',
+                    dateEnd: '2026-03-03',
+                    days: 2,
+                    cost: 80
+                }
+            ]
+        },
+        {
+            code: 'BK-002',
+            total: 150,
+            items: [
+                {
+                    title: 'Маленький принц',
+                    author: 'Антуан де Сент-Экзюпери',
+                    photo: 'img/exupery-prince.webp',
+                    branch: 'Северный',
+                    dateStart: '2026-02-20',
+                    dateEnd: '2026-02-25',
+                    days: 5,
+                    cost: 150
+                }
+            ]
+        }
+    ];
+
+    // Функция форматирования даты
+    function formatDate(dateStr) {
+        if (!dateStr) return '';
+        const [y, m, d] = dateStr.split('-');
+        return `${d}.${m}.${y}`;
+    }
+
+    // Функция рендеринга
+    function renderBookings(container, data) {
+        if (!data || data.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon-large">
+                        <img src="img/icon-mailbox.png" alt="Нет бронирований" width="60" height="60">
+                    </div>
+                    <p>Здесь пока ничего нет</p>
+                    <a href="booking.html" class="btn-outline" style="display: inline-block;">Забронировать книгу</a>
+                </div>
+            `;
+            return;
+        }
+
+        let html = '';
+        data.forEach(order => {
+            const itemsHtml = order.items.map(item => `
+                <div class="order-item">
+                    <div class="item-photo">
+                        <img src="${item.photo}" alt="${item.title}" loading="lazy">
+                    </div>
+                    <div class="item-details">
+                        <h4>${item.title}</h4>
+                        <p>Автор: ${item.author}</p>
+                        <div class="item-meta">
+                            <div class="meta-item">
+                                <img src="img/icon-location.png" alt="Филиал" class="meta-icon" width="16" height="16">
+                                <span>${item.branch}</span>
+                            </div>
+                            <div class="meta-item">
+                                <img src="img/icon-calendar.png" alt="Дата" class="meta-icon" width="16" height="16">
+                                <span>${formatDate(item.dateStart)} — ${formatDate(item.dateEnd)} (${item.days} дн.)</span>
+                            </div>
+                            <div class="meta-item">
+                                <img src="img/icon-price.png" alt="Стоимость" class="meta-icon" width="16" height="16">
+                                <span>${item.cost} ₽</span>
+                            </div>
+                        </div>
+                        <button class="btn-repeat" data-title="${item.title}" data-author="${item.author}" data-branch="${item.branch}">
+                            Повторить бронирование
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            html += `
+                <div class="booking-order">
+                    <div class="order-header">
+                        <span class="order-code">Код: ${order.code}</span>
+                        <span class="order-total">Общая стоимость: <span>${order.total} ₽</span></span>
+                    </div>
+                    <div class="order-items">
+                        ${itemsHtml}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+
+        // Добавляем обработчики на кнопки "Повторить"
+        document.querySelectorAll('.btn-repeat').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const title = btn.dataset.title;
+                alert(`Повторное бронирование книги "${title}" (демонстрация)`);
+                // Здесь можно перенаправить на страницу бронирования с предзаполненными данными
+            });
+        });
+    }
+
+    const container = document.getElementById('bookings-container');
+    
+    // Для демонстрации пустого состояния можно закомментировать массив или обнулить:
+    // const emptyTest = []; // раскомментировать для проверки пустого состояния
+    
+    // Рендерим с нашими данными
+    renderBookings(container, bookings);
+
+    // Пример для пустого состояния (раскомментировать, чтобы увидеть):
+    // renderBookings(container, []);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Буктрейл | Личный кабинет</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #F9F9F7;
+        color: #1F2937;
+        line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+        font-family: 'Merriweather', serif;
+        color: #2C5F2D;
+    }
+
+    a { 
+        text-decoration: none; 
+        color: inherit; 
+        transition: 0.3s; 
+    }
+
+    ul { 
+        list-style: none; 
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    /* Шапка */
+    header {
+        background: rgba(255, 255, 255, 0.95);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .nav-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 24px;
+        font-weight: 700;
+        color: #2C5F2D;
+        font-family: 'Merriweather', serif;
+    }
+
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; 
+        display: block;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .nav-links a {
+        font-weight: 500;
+        color: #1F2937;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+        color: #97BC62;
+    }
+
+    .auth-buttons {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .btn-login {
+        background-color: #2C5F2D;
+        color: white !important;
+        padding: 10px 24px;
+        border-radius: 30px;
+        font-weight: 600;
+        border: 2px solid #2C5F2D;
+    }
+
+    .btn-login:hover {
+        background-color: #97BC62;
+        border-color: #97BC62;
+    }
+
+    .btn-outline {
+        background-color: transparent;
+        color: #2C5F2D !important;
+        padding: 10px 24px;
+        border-radius: 30px;
+        font-weight: 600;
+        border: 2px solid #2C5F2D;
+    }
+
+    .btn-outline:hover {
+        background-color: #2C5F2D;
+        color: white !important;
+    }
+
+    /* Профиль */
+    .profile-page {
+        padding: 140px 0 80px;
+        min-height: calc(100vh - 300px);
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        background: #FFFFFF;
+        border-radius: 30px;
+        padding: 30px;
+        margin-bottom: 30px;
+        border: 2px solid rgba(151, 188, 98, 0.3);
+        box-shadow: 0 10px 30px rgba(44, 95, 45, 0.08);
+    }
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #97BC62;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+        font-weight: bold;
+    }
+
+    .user-info h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .user-stats {
+        display: flex;
+        gap: 30px;
+        margin-top: 15px;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #2C5F2D;
+        line-height: 1.2;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: #6B7280;
+        text-transform: uppercase;
+    }
+
+    .profile-actions {
+        display: flex;
+        gap: 15px;
+        margin-left: auto;
+    }
+
+    /* Кнопки с иконками в профиле */
+    .btn-profile,
+    .btn-logout {
+        background: none;
+        border: 2px solid #2C5F2D;
+        color: #2C5F2D;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+    }
+
+    .btn-profile {
+        border-color: #2C5F2D;
+        color: #2C5F2D;
+    }
+
+    .btn-profile:hover {
+        background: #2C5F2D;
+        color: white;
+    }
+
+    .btn-logout {
+        border-color: #D4A373;
+        color: #D4A373;
+    }
+
+    .btn-logout:hover {
+        background: #D4A373;
+        color: white;
+    }
+
+    /* Иконки внутри кнопок */
+    .icon-btn {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        object-fit: contain;
+        flex-shrink: 0;
+        vertical-align: middle;
+    }
+    /* Карточки бронирований (адаптированы под книги) */
+    .booking-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    .booking-card {
+        background: #FFFFFF;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 2px solid rgba(151, 188, 98, 0.3);
+        box-shadow: 0 10px 30px rgba(44, 95, 45, 0.08);
+        transition: 0.3s;
+    }
+
+    .booking-card:hover {
+        border-color: #97BC62;
+        transform: translateY(-5px);
+    }
+
+    .book-cover {
+        aspect-ratio: 3/4;
+        width: 100%;
+        overflow: hidden;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .book-cover img {
+         width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+    .book-info {
+        padding: 20px;
+    }
+
+    .book-title {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+        color: #2C5F2D;
+    }
+
+    .book-author {
+        color: #6B7280;
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+
+    .book-desc {
+        font-size: 0.9rem;
+        color: #1F2937;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .book-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 15px 0;
+        font-size: 0.85rem;
+    }
+
+    .book-meta span {
+        background: #F0F7E8;
+        padding: 4px 10px;
+        border-radius: 20px;
+        color: #2C5F2D;
+    }
+
+    .book-dates {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        color: #6B7280;
+        border-top: 1px dashed #e5e7eb;
+        padding-top: 10px;
+    }
+
+    .icon-small {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        object-fit: contain;
+    }
+
+    .book-meta span,
+    .book-dates span {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Подвал */
+    footer {
+        background-color: #2C5F2D;
+        color: white;
+        padding: 60px 0 40px;
+        margin-top: 60px;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 60px;
+        margin-left: 285px;
+    }
+
+    .footer-brand h3 {
+        color: white;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .footer-brand p {
+        color: rgba(255,255,255,0.7);
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    .contact-info {
+        color: rgba(255,255,255,0.8);
+    }
+
+    .contact-info p {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contact-info img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .footer-col h4 {
+        color: #97BC62;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+        color: rgba(255,255,255,0.8);
+    }
+
+    .footer-col ul li a:hover {
+        color: white;
+        padding-left: 5px;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 30px;
+        text-align: center;
+        color: rgba(255,255,255,0.5);
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+        .nav-wrapper {
+            flex-direction: column;
+            height: auto;
+            padding: 15px 0;
+        }
+        .nav-links {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        .profile-header {
+            flex-direction: column;
+            text-align: center;
+        }
+        .profile-actions {
+            margin-left: 0;
+            margin-top: 20px;
+        }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+        .footer-grid { grid-template-columns: 1fr; }
+        .booking-grid { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+<!-- Шапка сайта -->
+    <header>
+    <div class="container nav-wrapper">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"><img src="img/logo.jpg" alt="Логотип Буктрейл"></div>
+            Буктрейл
+        </a>
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="about.html"><img src="img/icon-aboutus.jpg" class="icon" alt="О нас">О нас</a></li>
+                <li></li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование"> Бронирование</a></li>
+                <li></li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn-login">Вход</a>
+            <a href="register.html" class="btn-outline">Регистрация</a>
+        </div>
+    </div>
+</header>
+
+<!-- Основной контент: личный кабинет -->
+<main class="profile-page">
+    <div class="container">
+        <!-- Шапка профиля -->
+        <div class="profile-header">
+            <div class="avatar">М</div>
+            <div class="user-info">
+                <h2>Мария Бегунова Александровна</h2>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">150</div>
+                        <div class="stat-label">Баллов</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Бронирования</div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <a href="cards.html" class="btn-profile">
+                    <img src="img/icon-card.png" class="icon-btn" alt="Карты">
+                    Карты
+                </a>
+                <a href="index.html" class="btn-logout" onclick="return confirm('Вы действительно хотите выйти?')">
+                    <img src="img/icon-logout.png" class="icon-btn" alt="Выход">
+                    Выход
+                </a>
+            </div>
+        </div>
+
+        <!-- Мои бронирования -->
+        <h2 class="section-title">Мои текущие бронирования</h2>
+        <div id="bookings-container" class="booking-grid">
+            <!-- Данные подставляются через JS -->
+        </div>
+    </div>
+</main>
+
+<!-- Подвал сайта -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Буктрейл</h3>
+                <p>Делитесь книгами с другими. Читайте больше, тратьте меньше.</p>
+                <div class="contact-info">
+                    <p>
+                        <img src="img/icon-phone.png" alt="Телефон">
+                        8 (980) 564-24-79
+                    </p>
+                    <p>
+                        <img src="img/icon-email.png" alt="Email">
+                        booktrail62@mail.ru
+                    </p>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="history.html">История</a></li>
+                    <li><a href="catalog.html">Каталог книг</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <ul>
+                    <li><a href="https://m.vk.com">ВКонтакте</a></li>
+                    <li><a href="https://web.telegram.org">Telegram</a></li>
+                    <li><a href="https://mail.google.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Буктрейл. Все права защищены.
+        </div>
+    </div>
+</footer>
+
+<script>
+    (function() {
+        // Данные текущих бронирований — обложки из папки img/
+        const bookings = [
+            {
+                id: 'B001',
+                author: 'Михаил Булгаков',
+                title: 'Мастер и Маргарита',
+                photo: 'img/bulgakov-master.webp',
+                description: 'Роман, в котором переплетаются история Понтия Пилата и московские приключения Воланда.',
+                branch: 'Центральный',
+                dateStart: '2026-03-01',
+                dateEnd: '2026-03-10'
+            },
+            {
+                id: 'B002',
+                author: 'Джордж Оруэлл',
+                title: '1984',
+                photo: 'img/orwell-1984.webp',
+                description: 'Культовая антиутопия о тоталитарном обществе.',
+                branch: 'Северный',
+                dateStart: '2026-03-05',
+                dateEnd: '2026-03-12'
+            },
+            {
+                id: 'B003',
+                author: 'Антуан де Сент-Экзюпери',
+                title: 'Маленький принц',
+                photo: 'img/exupery-prince.webp',
+                description: 'Философская сказка о дружбе и любви.',
+                branch: 'Западный',
+                dateStart: '2026-03-10',
+                dateEnd: '2026-03-17'
+            }
+        ];
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const [y, m, d] = dateStr.split('-');
+            return `${d}.${m}.${y}`;
+        }
+
+        function renderBookings(container, data) {
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p style="text-align:center; grid-column:1/-1; color:#6B7280;">У вас пока нет бронирований</p>';
+                return;
+            }
+
+        let html = '';
+        data.forEach(book => {
+            html += `
+                <div class="booking-card">
+                    <div class="book-cover">
+                        <img 
+                            src="${book.photo}" 
+                            alt="${book.title}" 
+                            loading="lazy"
+                            onerror="this.src='img/placeholder-book.webp'; this.onerror=null;"
+                        >
+                    </div>
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-author">${book.author}</div>
+                        <div class="book-desc">${book.description}</div>
+                        <div class="book-meta">
+                            <span>
+                                <img src="img/icon-id.png" class="icon-small" alt="ID">
+                                ${book.id}
+                            </span>
+                            <span>
+                                <img src="img/icon-location.png" class="icon-small" alt="Локация">
+                                ${book.branch}
+                            </span>
+                        </div>
+                        <div class="book-dates">
+                            <span>
+                                <img src="img/icon-calendar.png" class="icon-small" alt="Дата начала">
+                                с ${formatDate(book.dateStart)}
+                            </span>
+                            <span>
+                                <img src="img/icon-calendar.png" class="icon-small" alt="Дата окончания">
+                                по ${formatDate(book.dateEnd)}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+            container.innerHTML = html;
+        }
+
+        const container = document.getElementById('bookings-container');
+        renderBookings(container, bookings);
+    })();
+</script>
+</body>
+</html>

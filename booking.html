@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Буктрейл | Бронирование книг</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #F9F9F7;
+        color: #1F2937;
+        line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+        font-family: 'Merriweather', serif;
+        color: #2C5F2D;
+    }
+
+    a { 
+        text-decoration: none; 
+        color: inherit; 
+        transition: 0.3s; 
+    }
+
+    ul { 
+        list-style: none; 
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Иконки как изображения */
+    .icon {
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    /* Шапка сайта */
+    header {
+        background: rgba(255, 255, 255, 0.98);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        backdrop-filter: blur(10px);
+    }
+
+    .nav-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+        padding: 0 16px;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2C5F2D;
+        font-family: 'Merriweather', serif;
+        flex-shrink: 0;
+    }
+
+    .logo-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    /* Мобильное меню */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 5px;
+        z-index: 1001;
+    }
+
+    .hamburger span {
+        width: 24px;
+        height: 2px;
+        background: #2C5F2D;
+        border-radius: 2px;
+        transition: 0.3s;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-left: 40px;
+    }
+
+    .nav-links a {
+        font-weight: 500;
+        color: #1F2937;
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+        color: #97BC62;
+    }
+
+    .btn-login {
+        background-color: #2C5F2D;
+        color: white !important;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .btn-login:hover {
+        background-color: #97BC62;
+    }
+    .btn-login:hover {
+        background-color: #97BC62;
+    }
+
+    /* Стили страницы бронирования */
+    .booking-page {
+        padding: 120px 0 80px;
+        min-height: 100vh;
+    }
+
+    .booking-page h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.8rem;
+    }
+
+    .booking-item {
+        background: #fff;
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 2px solid rgba(151, 188, 98, 0.3);
+        box-shadow: 0 10px 30px rgba(44, 95, 45, 0.08);
+        transition: 0.3s;
+    }
+
+    .booking-item:hover {
+        border-color: #97BC62;
+    }
+
+    .booking-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #e5e7eb;
+    }
+
+    .booking-item-header h3 {
+        font-size: 1.3rem;
+        color: #2C5F2D;
+    }
+
+    .remove-item {
+        background: none;
+        border: none;
+        color: #D4A373;
+        font-size: 1.8rem;
+        cursor: pointer;
+        line-height: 1;
+        transition: 0.2s;
+    }
+
+    .remove-item:hover {
+        color: #b02e2e;
+        transform: scale(1.1);
+    }
+
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        flex: 1 1 200px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        color: #6B7280;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        border: 1px solid #e5e7eb;
+        padding: 10px 12px;
+        font-size: 1rem;
+        border-radius: 8px;
+        background: #FFFFFF;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: 2px solid #97BC62;
+        border-color: transparent;
+    }
+
+    .form-group input[readonly] {
+        background-color: #f3f4f6;
+        cursor: default;
+    }
+
+    .item-summary {
+        margin-top: 15px;
+        padding: 10px 15px;
+        background: #F9F9F7;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .item-days, .item-discount, .item-total {
+        font-weight: 600;
+    }
+
+    .item-discount {
+        color: #D4A373;
+    }
+
+    .item-total {
+        color: #2C5F2D;
+        font-size: 1.1rem;
+    }
+
+    .add-item-btn {
+        background-color: #97BC62;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-bottom: 30px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .add-item-btn:hover {
+        background-color: #2C5F2D;
+    }
+
+    .client-section {
+        background: #fff;
+        border-radius: 20px;
+        padding: 25px;
+        margin: 40px 0;
+        border: 2px solid rgba(151, 188, 98, 0.3);
+    }
+
+    .client-section h2 {
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+    }
+
+    .card-preview {
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: #2C5F2D;
+        font-weight: 600;
+    }
+
+    .total-section {
+        background: #fff;
+        border-radius: 20px;
+        padding: 25px;
+        margin: 30px 0;
+        border: 2px solid #97BC62;
+        box-shadow: 0 10px 30px rgba(44, 95, 45, 0.15);
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+    }
+
+    .total-final {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2C5F2D;
+        border-top: 2px solid #e5e7eb;
+        padding-top: 15px;
+        margin-top: 10px;
+    }
+
+    .btn-book {
+        background-color: #2C5F2D;
+        color: white;
+        border: none;
+        padding: 16px 60px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1.3rem;
+        cursor: pointer;
+        transition: 0.3s;
+        display: block;
+        margin: 40px auto 0;
+        box-shadow: 0 5px 15px rgba(44, 95, 45, 0.3);
+    }
+
+    .btn-book:hover {
+        background-color: #97BC62;
+        transform: scale(1.02);
+    }
+
+    /* Подвал */
+    footer {
+        background-color: #2C5F2D;
+        color: white;
+        padding: 80px 0 40px;
+        margin-top: 60px;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 60px;
+        margin-left: 285px;
+    }
+
+    .footer-brand h3 {
+        color: white;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .footer-brand p {
+        color: rgba(255,255,255,0.7);
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    .contact-info {
+        color: rgba(255,255,255,0.8);
+    }
+
+    .contact-info p {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contact-info img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .footer-col h4 {
+        color: #97BC62;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+        color: rgba(255,255,255,0.8);
+    }
+
+    .footer-col ul li a:hover {
+        color: white;
+        padding-left: 5px;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 30px;
+        text-align: center;
+        color: rgba(255,255,255,0.5);
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+        .nav-wrapper {
+            flex-direction: column;
+            height: auto;
+            padding: 15px 0;
+        }
+        .nav-links {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .hero h1 { font-size: 2.5rem; }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+        .booking-page h1 { font-size: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+        .form-row {
+            flex-direction: column;
+        }
+        .footer-grid { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="img/logo.jpg" alt="Логотип">
+                </div>
+                Буктрейл
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="about.html"><img src="img/icon-aboutus.jpg" class="icon" alt="О нас">О нас</a></li>
+                    <li></li><a href="history.html"><img src="img/icon-history.png" class="icon" alt="История">История</a></li>
+                    <li></li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
+                </ul>
+            </nav>
+              <div class="auth-buttons">
+                <a href="profile.html" class="btn-login"><img src="img/icon-user.png" class="icon" style="filter: brightness(0) invert(1);" alt="Кабинет"> Личный кабинет</a></li>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент: страница бронирования -->
+    <main class="booking-page">
+        <div class="container">
+            <h1>Бронирование книг</h1>
+            <p style="text-align: center; margin-bottom: 40px; color: #6B7280;">Выберите книги, укажите срок и получите скидку до 25%</p>
+
+            <!-- Контейнер для динамических позиций книг -->
+            <div id="booking-items-container">
+                <!-- Первая позиция (книга) будет добавлена через JS, но для примера оставим шаблон -->
+            </div>
+
+            <!-- Кнопка добавления новой книги -->
+            <button class="add-item-btn" id="addBookBtn">
+                <span style="font-size: 1.4rem;">+</span> Добавить ещё книгу
+            </button>
+
+            <!-- Данные клиента -->
+            <div class="client-section">
+                <h2>Данные клиента</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Имя</label>
+                        <input type="text" id="firstName" placeholder="Иван">
+                    </div>
+                    <div class="form-group">
+                        <label>Фамилия</label>
+                        <input type="text" id="lastName" placeholder="Иванов">
+                    </div>
+                    <div class="form-group">
+                        <label>Отчество</label>
+                        <input type="text" id="middleName" placeholder="Иванович">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Номер телефона</label>
+                        <input type="tel" id="phone" placeholder="+7 (900) 123-45-67">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="example@mail.ru">
+                    </div>
+                </div>
+
+                <!-- Банковская карта (с отображением последних 4 цифр) -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Номер банковской карты</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                        <div class="card-preview" id="cardLastDigits">Последние 4 цифры: —</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Выбрать сохранённую карту</label>
+                        <select id="savedCards">
+                            <option value="">— Выберите карту —</option>
+                            <option value="">Visa •••• 4128</option>
+                            <option value="5678">Mastercard •••• 5678</option>
+                            <option value="9012">Мир •••• 9012</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Итоговая стоимость и скидки -->
+            <div class="total-section" id="totalSection">
+                <h2 style="margin-bottom: 20px;">Ваш заказ</h2>
+                <div id="itemsTotalList"></div>
+                <div class="total-row" style="font-weight: 600;">
+                    <span>Общая стоимость:</span>
+                    <span id="totalAmount">0 ₽</span>
+                </div>
+                <div class="total-row" style="color: #D4A373;" id="totalDiscountInfo">
+                    <span>Скидка всего:</span>
+                    <span id="totalDiscount">0 ₽</span>
+                </div>
+                <div class="total-final total-row">
+                    <span>К оплате:</span>
+                    <span id="finalAmount">0 ₽</span>
+                </div>
+            </div>
+
+            <!-- Кнопка оформления бронирования -->
+            <button class="btn-book" id="bookNowBtn">Забронировать</button>
+        </div>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>Буктрейл</h3>
+                    <p>Делитесь книгами с другими. Читайте больше, тратьте меньше.</p>
+                    <div class="contact-info">
+                        <p>
+                            <img src="img/icon-phone.png" alt="Телефон">
+                            8 (980) 564-24-79
+                        </p>
+                        <p>
+                            <img src="img/icon-email.png" alt="Email">
+                            booktrail62@mail.ru
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="booking.html">Бронирование</a></li>
+                        <li><a href="sales.html">Акции</a></li>
+                        <li><a href="catalog.html">Каталог книг</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><a href="https://m.vk.com">ВКонтакте</a></li>
+                        <li><a href="https://web.telegram.org">Telegram</a></li>
+                        <li><a href="https://mail.google.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Буктрейл. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипт для управления бронированием -->
+    <script>
+        (function() {
+            // База данных книг
+            const booksDB = [
+                { id: 1, title: 'Мастер и Маргарита', genre: 'Роман', isbn: '978-5-17-123456-7', price: 50 },
+                { id: 2, title: '1984', genre: 'Антиутопия', isbn: '978-5-04-123456-7', price: 40 },
+                { id: 3, title: 'Маленький принц', genre: 'Сказка', isbn: '978-5-699-12345-6', price: 30 },
+                { id: 4, title: 'Убить пересмешника', genre: 'Роман', isbn: '978-5-17-098765-4', price: 45 },
+                { id: 5, title: 'Гарри Поттер и философский камень', genre: 'Фэнтези', isbn: '978-5-389-12345-6', price: 60 },
+            ];
+
+            // Филиалы
+            const branches = [
+                'Центральный',
+                'Северный',
+                'Южный',
+                'Западный',
+                'Восточный'
+            ];
+
+            // Контейнер для позиций
+            const container = document.getElementById('booking-items-container');
+            let itemCount = 0;
+
+            // Функция создания HTML для одной позиции книги
+            function createBookingItem(bookData = null) {
+                const itemId = 'item-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+                const div = document.createElement('div');
+                div.className = 'booking-item';
+                div.dataset.itemId = itemId;
+
+                // Заполняем значения, если передана книга
+                const selectedId = bookData ? bookData.id : '';
+                const selectedTitle = bookData ? bookData.title : '';
+                const selectedGenre = bookData ? bookData.genre : '';
+                const selectedIsbn = bookData ? bookData.isbn : '';
+                const selectedPrice = bookData ? bookData.price : '';
+
+                // Генерируем options для выбора книг
+                let bookOptions = '<option value="" disabled selected>Выберите книгу</option>';
+                booksDB.forEach(book => {
+                    bookOptions += `<option value="${book.id}" data-genre="${book.genre}" data-isbn="${book.isbn}" data-price="${book.price}">${book.title}</option>`;
+                });
+
+                // Options для филиалов
+                let branchOptions = '';
+                branches.forEach(b => {
+                    branchOptions += `<option value="${b}">${b}</option>`;
+                });
+
+                div.innerHTML = `
+                    <div class="booking-item-header">
+                        <h3>Книга</h3>
+                        <button class="remove-item" type="button" title="Удалить книгу">&times;</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 2;">
+                            <label>Название книги</label>
+                            <select class="book-select" required>
+                                ${bookOptions}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>ID книги</label>
+                            <input type="text" class="book-id" readonly value="${selectedId}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Жанр</label>
+                            <input type="text" class="book-genre" readonly value="${selectedGenre}">
+                        </div>
+                        <div class="form-group">
+                            <label>ISBN / Инв. номер</label>
+                            <input type="text" class="book-isbn" readonly value="${selectedIsbn}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Дата бронирования</label>
+                            <input type="date" class="start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Дата возврата</label>
+                            <input type="date" class="end-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Стоимость за день (₽)</label>
+                            <input type="number" class="price-per-day" min="0" step="1" value="${selectedPrice}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Филиал</label>
+                            <select class="branch">
+                                ${branchOptions}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item-summary">
+                        <span class="item-days">Дней: <span class="days-count">0</span></span>
+                        <span class="item-discount">Скидка: <span class="discount-percent">0%</span></span>
+                        <span class="item-total">Сумма: <span class="item-total-amount">0</span> ₽</span>
+                    </div>
+                `;
+
+                // Добавляем обработчик на удаление
+                div.querySelector('.remove-item').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (container.children.length > 1) {
+                        div.remove();
+                    } else {
+                        alert('Должна быть хотя бы одна книга.');
+                    }
+                    calculateTotal();
+                });
+
+                // Обработчик выбора книги
+                const select = div.querySelector('.book-select');
+                select.addEventListener('change', function() {
+                    const option = this.options[this.selectedIndex];
+                    if (option.value) {
+                        div.querySelector('.book-id').value = option.value;
+                        div.querySelector('.book-genre').value = option.dataset.genre || '';
+                        div.querySelector('.book-isbn').value = option.dataset.isbn || '';
+                        div.querySelector('.price-per-day').value = option.dataset.price || 0;
+                    }
+                    calculateTotal();
+                });
+
+                // Обработчики изменения дат и цены
+                div.querySelector('.start-date').addEventListener('change', calculateTotal);
+                div.querySelector('.end-date').addEventListener('change', calculateTotal);
+                div.querySelector('.price-per-day').addEventListener('input', calculateTotal);
+
+                return div;
+            }
+
+            // Функция добавления новой позиции
+            function addNewItem(book = null) {
+                const newItem = createBookingItem(book);
+                container.appendChild(newItem);
+                calculateTotal();
+            }
+
+            // Заполняем начальными данными (первая позиция пустая, вторая с книгой для примера)
+            addNewItem(); // пустая
+            addNewItem(booksDB[0]); // для демо предзаполним Мастером и Маргаритой
+
+            // Кнопка добавления
+            document.getElementById('addBookBtn').addEventListener('click', function() {
+                addNewItem();
+            });
+
+            // Функция расчёта количества дней между датами
+            function daysBetween(start, end) {
+                if (!start || !end) return 0;
+                const startDate = new Date(start);
+                const endDate = new Date(end);
+                const diffTime = endDate - startDate;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays > 0 ? diffDays : 0;
+            }
+
+            // Функция расчёта скидки в зависимости от дней
+            function getDiscountPercent(days) {
+                if (days < 3) return 0;
+                const discount = 5 * Math.floor(days / 3);
+                return Math.min(discount, 25);
+            }
+
+            // Основная функция пересчёта всех сумм
+            function calculateTotal() {
+                const items = document.querySelectorAll('.booking-item');
+                let totalSum = 0;
+                let totalDiscountSum = 0;
+                let itemsHtml = '';
+
+                items.forEach(item => {
+                    const start = item.querySelector('.start-date').value;
+                    const end = item.querySelector('.end-date').value;
+                    const price = parseFloat(item.querySelector('.price-per-day').value) || 0;
+                    const days = daysBetween(start, end);
+                    const discountPercent = getDiscountPercent(days);
+                    const discountMultiplier = (100 - discountPercent) / 100;
+                    const itemSum = price * days * discountMultiplier;
+
+                    // Обновляем отображение в позиции
+                    item.querySelector('.days-count').textContent = days;
+                    item.querySelector('.discount-percent').textContent = discountPercent + '%';
+                    item.querySelector('.item-total-amount').textContent = itemSum.toFixed(2);
+
+                    // Для итоговой сводки
+                    const title = item.querySelector('.book-select option:checked')?.textContent || 'Не выбрана';
+                    totalSum += itemSum;
+                    totalDiscountSum += (price * days) * (discountPercent / 100);
+
+                    itemsHtml += `<div class="total-row"><span>${title} (${days} дн., скидка ${discountPercent}%)</span><span>${itemSum.toFixed(2)} ₽</span></div>`;
+                });
+
+                document.getElementById('itemsTotalList').innerHTML = itemsHtml;
+                document.getElementById('totalAmount').textContent = totalSum.toFixed(2) + ' ₽';
+                document.getElementById('totalDiscount').textContent = totalDiscountSum.toFixed(2) + ' ₽';
+                document.getElementById('finalAmount').textContent = totalSum.toFixed(2) + ' ₽';
+            }
+
+            // Отображение последних 4 цифр карты
+            const cardInput = document.getElementById('cardNumber');
+            const cardPreview = document.getElementById('cardLastDigits');
+            cardInput.addEventListener('input', function() {
+                let val = this.value.replace(/\s+/g, '');
+                if (val.length > 4) {
+                    const last4 = val.slice(-4);
+                    cardPreview.textContent = 'Последние 4 цифры: ' + last4;
+                } else {
+                    cardPreview.textContent = 'Последние 4 цифры: —';
+                }
+            });
+
+            // Выбор сохранённой карты (заполняет поле)
+            document.getElementById('savedCards').addEventListener('change', function() {
+                if (this.value) {
+                    cardInput.value = '**** **** **** ' + this.value;
+                    cardPreview.textContent = 'Последние 4 цифры: ' + this.value;
+                }
+            });
+
+            // Обработчик кнопки "Забронировать"
+            document.getElementById('bookNowBtn').addEventListener('click', function() {
+                alert('Бронирование оформлено! (демонстрация)');
+            });
+
+            // Первоначальный расчёт
+            calculateTotal();
+        })();
+    </script>
+</body>
+</html>
