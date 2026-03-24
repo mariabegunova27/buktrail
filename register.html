@@ -304,25 +304,436 @@
         font-size: 0.9rem;
     }
 
-    @media (max-width: 900px) {
+    /*Адаптивность*/
+    /* Узкие телефоны (≤344px) */
+    @media (max-width: 344px) {
+        .container { padding: 0 12px; }
+        
+        .register-page h1 {
+            font-size: 1.4rem;
+            line-height: 1.3;
+        }
+        
+        .register-form {
+            padding: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 14px;
+        }
+        
+        .form-group label {
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px;
+            font-size: 1rem;
+            min-height: 44px;
+        }
+        
+        .btn-register {
+            width: 100%;
+            padding: 13px;
+            font-size: 0.95rem;
+            min-height: 48px;
+        }
+        
+        .register-links {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+        }
+        
+        .nav-links {
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-links a {
+            font-size: 0.8rem;
+            padding: 5px 8px;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 14px;
+        }
+    }
+
+    /* Маленькие телефоны (345px–375px) */
+    @media (min-width: 345px) and (max-width: 375px) {
+        .container { padding: 0 16px; }
+        
+        .register-page h1 {
+            font-size: 1.6rem;
+        }
+        
+        .register-form {
+            padding: 16px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 12px;
+            font-size: 1rem;
+        }
+        
+        .btn-register {
+            padding: 14px;
+            font-size: 1rem;
+        }
+        
+        .nav-links a {
+            font-size: 0.85rem;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+    }
+
+    /*  Телефоны среднего размера (376px–414px) */
+    @media (min-width: 376px) and (max-width: 414px) {
+        .register-page h1 {
+            font-size: 1.8rem;
+        }
+        
+        .register-form {
+            padding: 20px;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 13px;
+            font-size: 1rem;
+        }
+        
+        .btn-register {
+            padding: 15px;
+            font-size: 1rem;
+        }
+        
+        .nav-links a {
+            font-size: 0.9rem;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Крупные телефоны (415px–430px)  */
+    @media (min-width: 415px) and (max-width: 430px) {
+        .register-page h1 {
+            font-size: 1.9rem;
+        }
+        
+        .register-form {
+            padding: 24px;
+            max-width: 400px;
+        }
+        
+        .form-row {
+            gap: 16px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 14px;
+        }
+        
+        .password-requirements {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Телефоны XL / Планшеты SMALL (431–540 пикселей) */
+    @media (min-width: 431px) and (max-width: 540px) {
+        .container {
+            padding: 0 20px;
+        }
+        
+        .register-page h1 {
+            font-size: 2rem;
+        }
+        
+        .register-form {
+            padding: 28px;
+            max-width: 420px;
+        }
+        
+        .form-row {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        
+        .register-links {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+            text-align: left;
+        }
+    }
+
+    /* Портрет для маленьких планшетов (541–767 пикселей) */
+    @media (min-width: 541px) and (max-width: 767px) {
+        .container {
+            padding: 0 24px;
+        }
+        
+        .register-page h1 {
+            font-size: 2.1rem;
+        }
+        
+        .register-form {
+            padding: 32px;
+            max-width: 450px;
+        }
+        
+        .form-row {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+        
+        .password-requirements {
+            font-size: 0.9rem;
+        }
+        
         .nav-wrapper {
             flex-direction: column;
-            height: auto;
-            padding: 15px 0;
+            padding: 12px 0;
         }
+        
         .nav-links {
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
         }
-        .footer-grid { grid-template-columns: 1fr 1fr; }
-        .register-card { padding: 30px 20px; }
-        .register-card h1 { font-size: 2rem; }
     }
 
-    @media (max-width: 600px) {
-        .footer-grid { grid-template-columns: 1fr; }
-        .form-row { flex-direction: column; gap: 15px; }
+    /* Портрет для планшетов (768–820 пикселей) */
+    @media (min-width: 768px) and (max-width: 820px) {
+        .container {
+            max-width: 750px;
+            padding: 0 32px;
+        }
+        
+        .register-page h1 {
+            font-size: 2.2rem;
+        }
+        
+        .register-form {
+            padding: 40px;
+            max-width: 480px;
+        }
+        
+        .form-row {
+            gap: 20px;
+        }
+        
+        .nav-links {
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .hamburger {
+            display: none;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Для планшетов: альбомная ориентация (821–1024 пикселей) */
+    @media (min-width: 821px) and (max-width: 1024px) {
+        .container {
+            max-width: 960px;
+            padding: 0 40px;
+        }
+        
+        .register-page h1 {
+            font-size: 2.3rem;
+        }
+        
+        .register-form {
+            padding: 48px;
+            max-width: 500px;
+        }
+        
+        .form-row {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* Небольшие настольные компьютеры (1025–1280 пикселей) */
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .container {
+            max-width: 1200px;
+        }
+        
+        .register-page h1 {
+            font-size: 2.4rem;
+        }
+        
+        .register-form {
+            max-width: 520px;
+            padding: 50px;
+        }
+    }
+
+    /* Настольные компьютеры (1281px+) */
+    @media (min-width: 1281px) {
+        .container {
+            max-width: 1400px;
+        }
+        
+        .register-page h1 {
+            font-size: 2.5rem;
+        }
+        
+        .register-form {
+            max-width: 550px;
+            padding: 55px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        .register-form:hover {
+            box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+        }
+    }
+
+    /* Адаптация по высоте экрана */
+    /* Для устройств с коротким экраном (375×667, 414×896 и др.) */
+    @media (max-height: 750px) and (max-width: 480px) {
+        .register-page {
+            padding: 60px 0 30px;
+        }
+        
+        .register-form {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 12px;
+        }
+        
+        .password-requirements {
+            font-size: 0.8rem;
+        }
+        
+        .nav-links {
+            top: 60px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+    }
+
+    /* Для планшетов с высотой < 1100px */
+    @media (max-height: 1100px) and (min-width: 768px) {
+        .register-form {
+            padding: 32px;
+        }
+        
+        .form-row {
+            gap: 16px;
+        }
+    }
+
+    /* Горизонтальная ориентация */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .nav-wrapper {
+            padding: 8px 0;
+        }
+        
+        .nav-links {
+            flex-direction: row;
+            position: static;
+            transform: none;
+            opacity: 1;
+            padding: 0;
+            box-shadow: none;
+        }
+        
+        .hamburger {
+            display: none;
+        }
+        
+        .register-page {
+            padding: 50px 0 20px;
+        }
+        
+        .register-form {
+            padding: 24px;
+            max-width: 600px;
+        }
+        
+        .form-row {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /*  Поддержка сетчатки/высокой плотности */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .brand-logo img,
+        .nav-links img {
+            image-rendering: -webkit-optimize-contrast;
+        }
+    }
+
+    /* Доступность для тач-устройств */
+    @media (hover: none) and (pointer: coarse) {
+        .nav-links a,
+        .btn-register,
+        .form-group input,
+        .form-group select {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 14px 16px;
+            font-size: 16px; /* Предотвращает зум на iOS */
+        }
+        
+        .btn-register {
+            padding: 16px 24px;
+            font-size: 1rem;
+        }
+    }
+
+    /* Предпочтение уменьшенного движения */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
     }
 </style>
 </head>
@@ -339,12 +750,12 @@
     <nav>
         <ul class="nav-links">
             <li><a href="about.html"><img src="img/icon-aboutus.jpg" class="icon" alt="О нас">О нас</a></li>
-            <li></li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование">Бронирование</a></li>
-            <li></li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
+            <li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование">Бронирование</a></li>
+            <li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
         </ul>
     </nav>
         <div class="auth-buttons">
-        <a href="profile.html" class="btn-login"><img src="img/icon-user.png" class="icon" style="filter: brightness(0) invert(1);" alt="Кабинет"> Личный кабинет</a></li>
+        <a href="profile.html" class="btn-login"><img src="img/icon-user.png" class="icon" style="filter: brightness(0) invert(1);" alt="Кабинет"> Личный кабинет</a>
     </div>
 </div>
 </header>
@@ -393,7 +804,7 @@
                     </div>
                    <div class="form-group">
                         <label for="birthdate">Дата рождения</label>
-                        <input type="date" id="birthdate" max="">
+                        <input type="date" id="birthdate">
                     </div>
                 </div>
 
@@ -428,7 +839,7 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
-                <h3>Буктрейл</h3>
+                <h2>Буктрейл</h2>
                 <p>Делитесь книгами с другими. Читайте больше, тратьте меньше.</p>
                 <div class="contact-info">
                     <p>
@@ -442,7 +853,7 @@
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Навигация</h4>
+                <h3>Навигация</h3>
                 <ul>
                     <li><a href="index.html">Главная</a></li>
                     <li><a href="booking.html">Бронирование</a></li>
@@ -494,13 +905,16 @@
             // Здесь можно добавить отправку данных, но пока просто демо
             alert('Регистрация прошла успешно! (демонстрация)');
         });
-            // Ограничиваем выбор даты рождения сегодняшним днём
-            document.addEventListener('DOMContentLoaded', function() {
-                const birthdateInput = document.getElementById('birthdate');
-                const today = new Date().toISOString().split('T')[0]; // формат YYYY-MM-DD
-                birthdateInput.setAttribute('max', today);
-            });
-    })();
+
+    // Установить максимальную дату - сегодня
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        const birthdateInput = document.getElementById('birthdate');
+        if (birthdateInput) {
+            birthdateInput.max = today;
+        }
+    });
+})();
 </script>
 </body>
 </html>

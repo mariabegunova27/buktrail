@@ -390,134 +390,239 @@
         font-size: 0.9rem;
     }
 
-    /* Мобильное меню (до 768px) */
-    @media (max-width: 768px) {
-    .nav-wrapper {
-        position: relative;
-    }
-    .hamburger {
-        display: flex;
-    }
-    .nav-links {
-        position: absolute;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background: white;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 0;
-        gap: 20px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        transform: translateY(-150%);
-        opacity: 0;
-        transition: 0.3s;
-        z-index: 999;
-        margin-left: 0;
-    }
-    .nav-links.active {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    #authSection {
-        margin-left: 10px;
-    }
-    #authSection .btn-login,
-    #authSection .btn-outline {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-    }
-    }
-
-    /* Адаптация контента */
-    @media (max-width: 900px) {
-    .about-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .about-text h1 {
-        font-size: 2.2rem;
-    }
-    .values-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    }
-
-    @media (max-width: 600px) {
-    .values-grid {
-        grid-template-columns: 1fr;
-    }
-    .footer-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .contact-info p {
-        justify-content: center;
-    }
-    }
-
-    /* Изображения заполняют контейнер */
-    .about-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 20px;
-    }
-
-    .value-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 20px;
-    background-color: #e8f0e5;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
-    .value-icon img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    }
-
-    /* Шрифты и отступы для мобильных */
+    /* Адаптивность */
+    /* Мобильные устройства (320px–480px) */
     @media (max-width: 480px) {
-    .about-intro {
-        padding: 120px 0 40px;
-    }
-    .about-text h1 {
-        font-size: 1.8rem;
-    }
-    .about-text p {
-        font-size: 1rem;
-    }
-    .section-title h2 {
-        font-size: 2rem;
-    }
-    .value-card h3 {
-        font-size: 1.2rem;
-    }
-    .footer-brand h3 {
-        font-size: 1.5rem;
-    }
+        .container {
+            padding: 0 16px;
+        }
+        
+        .about-text h1 {
+            font-size: 1.8rem;
+            line-height: 1.3;
+        }
+        
+        .about-text p {
+            font-size: 1rem;
+        }
+        
+        .values-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        
+        .value-card {
+            padding: 20px;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 20px;
+        }
+        
+        .contact-info {
+            align-items: center;
+        }
+        
+        .nav-links {
+            padding: 16px 0;
+        }
+        
+        .nav-links a {
+            font-size: 1.1rem;
+            padding: 12px 0;
+        }
     }
 
-    /* Скрываем гамбургер на десктопах */
-    .hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    margin-left: auto;
+    /* Маленькие телефоны (320px–375px)  */
+    @media (max-width: 375px) {
+        .about-text h1 {
+            font-size: 1.6rem;
+        }
+        
+        .section-title h2 {
+            font-size: 1.5rem;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
     }
-    .hamburger span {
-    width: 25px;
-    height: 3px;
-    background: #2C5F2D;
-    margin: 3px 0;
-    transition: 0.3s;
-    border-radius: 3px;
+
+    /* Средние телефоы (376px–430px) */
+    @media (min-width: 376px) and (max-width: 430px) {
+        .about-grid {
+            gap: 24px;
+        }
+        
+        .about-image img {
+            max-height: 300px;
+        }
     }
-    </style>
+
+    /* Большие телефоны/Маленькие планшеты (431px – 767px) */
+    @media (min-width: 431px) and (max-width: 767px) {
+        .values-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .about-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .nav-links {
+            padding: 20px 0;
+        }
+    }
+
+    /*  Портретный режим (768px–1024px)  */
+    @media (min-width: 768px) and (max-width: 1024px) {
+        .container {
+            padding: 0 32px;
+        }
+        
+        .about-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .values-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+            text-align: left;
+        }
+        
+        .nav-links {
+            flex-direction: row;
+            position: static;
+            transform: none;
+            opacity: 1;
+            box-shadow: none;
+            padding: 0;
+            background: transparent;
+        }
+        
+        .hamburger {
+            display: none;
+        }
+    }
+
+    /* Планшеты альбомный режим/Небольшие настольные компьютеры (1025px–1280px) */
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .container {
+            max-width: 1200px;
+            padding: 0 40px;
+        }
+        
+        .about-text h1 {
+            font-size: 2.5rem;
+        }
+        
+        .values-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+    }
+
+    /* Настольные компьютеры (1281px+) */
+    @media (min-width: 1281px) {
+        .container {
+            max-width: 1400px;
+        }
+        
+        .about-grid {
+            gap: 60px;
+        }
+        
+        .values-grid {
+            gap: 40px;
+        }
+    }
+
+    /* Адаптация по высоте экрана  */
+    /* Для устройств с коротким экраном (например, 375×667) */
+    @media (max-height: 700px) and (max-width: 480px) {
+        .about-intro {
+            padding: 80px 0 30px;
+        }
+        
+        .nav-links {
+            top: 70px;
+            max-height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+    }
+
+    /* Для планшетов с высотой < 1000px */
+    @media (max-height: 1000px) and (min-width: 768px) {
+        .about-grid {
+            gap: 30px;
+        }
+    }
+
+    /* Поддержка горизонтальной ориентации  */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .nav-links {
+            flex-direction: row;
+            position: static;
+            transform: none;
+            opacity: 1;
+            padding: 10px 0;
+        }
+        
+        .hamburger {
+            display: none;
+        }
+        
+        .about-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Поддержка сетчатки/Высокой плотности */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .about-image img,
+        .value-icon img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+    }
+
+    /* Улучшния доступности */
+    /* Увеличение интерактивных элементов для тач-устройств */
+    @media (hover: none) and (pointer: coarse) {
+        .nav-links a,
+        .btn,
+        .value-card {
+            min-height: 44px;
+            min-width: 44px;
+            padding: 12px 16px;
+        }
+        
+        .nav-links a {
+            display: block;
+            padding: 14px 0;
+        }
+    }
+
+    /* Предпочтение уменьшенного движения */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+        </style>
 </head>
 <body>
 
@@ -531,8 +636,8 @@
         <nav>
             <ul class="nav-links" id="navLinks">
                 <li><a href="about.html"><img src="img/icon-aboutus.jpg" class="icon" alt="О нас">О нас</a></li>
-                <li></li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование"> Бронирование</a></li>
-                <li></li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
+                <li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование"> Бронирование</a></li>
+                <li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
             </ul>
         </nav>
         <div class="hamburger" id="hamburger">
@@ -562,6 +667,7 @@
             </div>
         </div>
     </section>
+</main>
 
     <!-- Наши ценности -->
     <section class="values-section">
@@ -631,7 +737,6 @@
         </div>
     </div>
 </footer>
-</body>
 <script>
 // Мобильное меню
 (function() {
@@ -650,4 +755,5 @@
     }
 })();
 </script>
+</body>
 </html>

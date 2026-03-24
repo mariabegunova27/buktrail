@@ -431,32 +431,579 @@
         font-size: 0.9rem;
     }
 
-    @media (max-width: 900px) {
+    /* ========== SMALL PHONES (≤344px) — узкие смартфоны ========== */
+    @media (max-width: 344px) {
+        .container { padding: 0 12px; }
+        
+        .profile-page h1 {
+            font-size: 1.4rem;
+            line-height: 1.3;
+        }
+        
+        .profile-header {
+            padding: 16px;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 12px;
+        }
+        
+        .profile-name {
+            font-size: 1.1rem;
+        }
+        
+        .profile-stats {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .stat-item {
+            padding: 12px;
+            min-width: 100%;
+        }
+        
+        .profile-tabs {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tab-btn {
+            padding: 10px 14px;
+            font-size: 0.85rem;
+        }
+        
+        .booking-card {
+            padding: 14px;
+        }
+        
+        .booking-card h3 {
+            font-size: 1rem;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 0.9rem;
+            min-height: 44px;
+        }
+        
+        .nav-links {
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-links a {
+            font-size: 0.8rem;
+            padding: 5px 8px;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 14px;
+        }
+    }
+    /*Адаптивность*/
+    /* Маленькие телефоны (345px – 375px)  */
+    @media (min-width: 345px) and (max-width: 375px) {
+        .container { padding: 0 16px; }
+        
+        .profile-page h1 {
+            font-size: 1.6rem;
+        }
+        
+        .profile-header {
+            padding: 18px;
+        }
+        
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+        }
+        
+        .profile-name {
+            font-size: 1.2rem;
+        }
+        
+        .profile-stats {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .stat-item {
+            min-width: 80px;
+            padding: 14px;
+        }
+        
+        .nav-links a {
+            font-size: 0.85rem;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+    }
+
+    /* Телефоны среднего размера (376px–414px) */
+    @media (min-width: 376px) and (max-width: 414px) {
+        .profile-page h1 {
+            font-size: 1.8rem;
+        }
+        
+        .profile-header {
+            padding: 20px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .profile-name {
+            font-size: 1.3rem;
+        }
+        
+        .profile-stats {
+            justify-content: space-around;
+        }
+        
+        .stat-item {
+            min-width: 90px;
+            padding: 16px;
+        }
+        
+        .profile-tabs {
+            gap: 10px;
+        }
+        
+        .tab-btn {
+            padding: 11px 16px;
+            font-size: 0.9rem;
+        }
+        
+        .booking-card {
+            padding: 16px;
+        }
+        
+        .nav-links a {
+            font-size: 0.9rem;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Крупные телефоны (415px–430px) */
+    @media (min-width: 415px) and (max-width: 430px) {
+        .profile-page h1 {
+            font-size: 1.9rem;
+        }
+        
+        .profile-header {
+            padding: 24px;
+        }
+        
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+        }
+        
+        .profile-name {
+            font-size: 1.4rem;
+        }
+        
+        .stat-item {
+            min-width: 100px;
+            padding: 18px;
+        }
+        
+        .tab-btn {
+            padding: 12px 18px;
+            font-size: 0.95rem;
+        }
+        
+        .booking-card {
+            padding: 18px;
+        }
+        
+        .booking-actions {
+            flex-direction: row;
+            gap: 10px;
+        }
+    }
+
+    /* = Телефоны XL / Планшеты SMALL (431–540 пикселей) */
+    @media (min-width: 431px) and (max-width: 540px) {
+        .container {
+            padding: 0 20px;
+        }
+        
+        .profile-page h1 {
+            font-size: 2rem;
+        }
+        
+        .profile-header {
+            padding: 28px;
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            margin-right: 20px;
+            margin-bottom: 0;
+        }
+        
+        .profile-stats {
+            justify-content: flex-start;
+            gap: 16px;
+        }
+        
+        .profile-tabs {
+            justify-content: flex-start;
+        }
+        
+        .booking-list {
+            gap: 16px;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+            text-align: left;
+        }
+    }
+
+    /* Портрет для маленьких планшетов (541–767 пикселей) */
+    @media (min-width: 541px) and (max-width: 767px) {
+        .container {
+            padding: 0 24px;
+        }
+        
+        .profile-page h1 {
+            font-size: 2.1rem;
+        }
+        
+        .profile-header {
+            padding: 32px;
+        }
+        
+        .profile-avatar {
+            width: 130px;
+            height: 130px;
+        }
+        
+        .profile-name {
+            font-size: 1.5rem;
+        }
+        
+        .stat-item {
+            min-width: 110px;
+            padding: 20px;
+        }
+        
+        .profile-tabs {
+            gap: 12px;
+        }
+        
+        .tab-btn {
+            padding: 13px 20px;
+            font-size: 1rem;
+        }
+        
+        .booking-card {
+            padding: 20px;
+        }
+        
         .nav-wrapper {
             flex-direction: column;
-            height: auto;
-            padding: 15px 0;
+            padding: 12px 0;
         }
+        
         .nav-links {
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin: 10px 0;
+            gap: 12px;
         }
-        .profile-header {
-            flex-direction: column;
-            text-align: center;
-        }
-        .profile-actions {
-            margin-left: 0;
-            margin-top: 20px;
-        }
-        .footer-grid { grid-template-columns: 1fr 1fr; }
     }
 
-    @media (max-width: 600px) {
-        .footer-grid { grid-template-columns: 1fr; }
-        .booking-grid { grid-template-columns: 1fr; }
+    /* Портрет для планшетов (768–820 пикселей) */
+    @media (min-width: 768px) and (max-width: 820px) {
+        .container {
+            max-width: 750px;
+            padding: 0 32px;
+        }
+        
+        .profile-page h1 {
+            font-size: 2.2rem;
+        }
+        
+        .profile-header {
+            padding: 40px;
+        }
+        
+        .profile-avatar {
+            width: 140px;
+            height: 140px;
+        }
+        
+        .profile-stats {
+            gap: 24px;
+        }
+        
+        .stat-item {
+            min-width: 120px;
+            padding: 22px;
+        }
+        
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .nav-links {
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .hamburger {
+            display: none;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /*  Для планшетов: альбомная ориентация (821–1024 пикселей) */
+    @media (min-width: 821px) and (max-width: 1024px) {
+        .container {
+            max-width: 960px;
+            padding: 0 40px;
+        }
+        
+        .profile-page h1 {
+            font-size: 2.3rem;
+        }
+        
+        .profile-header {
+            padding: 48px;
+        }
+        
+        .profile-content {
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        
+        .profile-sidebar {
+            order: 2;
+        }
+        
+        .booking-list {
+            order: 1;
+        }
+        
+        .stat-item {
+            min-width: 130px;
+            padding: 24px;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* Небольшие настольные компьютеры (1025–1280 пикселей) */
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .container {
+            max-width: 1200px;
+        }
+        
+        .profile-page h1 {
+            font-size: 2.4rem;
+        }
+        
+        .profile-header {
+            padding: 50px;
+        }
+        
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .profile-content {
+            grid-template-columns: 3fr 1fr;
+            gap: 50px;
+        }
+        
+        .booking-card {
+            padding: 24px;
+        }
+    }
+
+    /* Настольные компьютеры (1281px+) */
+    @media (min-width: 1281px) {
+        .container {
+            max-width: 1400px;
+        }
+        
+        .profile-page h1 {
+            font-size: 2.5rem;
+        }
+        
+        .profile-header {
+            padding: 55px;
+        }
+        
+        .profile-avatar {
+            width: 160px;
+            height: 160px;
+        }
+        
+        .profile-content {
+            gap: 60px;
+        }
+        
+        .booking-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+    }
+
+    /* Адаптация по высоте экрана */
+    /* Для устройств с коротким экраном (375×667, 414×896 и др.) */
+    @media (max-height: 750px) and (max-width: 480px) {
+        .profile-page {
+            padding: 60px 0 30px;
+        }
+        
+        .profile-header {
+            padding: 20px;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .profile-stats {
+            gap: 10px;
+        }
+        
+        .stat-item {
+            padding: 12px;
+            min-width: 70px;
+        }
+        
+        .nav-links {
+            top: 60px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+    }
+
+    /* Для планшетов с высотой < 1100px */
+    @media (max-height: 1100px) and (min-width: 768px) {
+        .profile-header {
+            padding: 32px;
+        }
+        
+        .profile-content {
+            gap: 30px;
+        }
+    }
+
+    /* Горизонтальная ориентация */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .nav-wrapper {
+            padding: 8px 0;
+        }
+        
+        .nav-links {
+            flex-direction: row;
+            position: static;
+            transform: none;
+            opacity: 1;
+            padding: 0;
+            box-shadow: none;
+        }
+        
+        .hamburger {
+            display: none;
+        }
+        
+        .profile-page {
+            padding: 50px 0 20px;
+        }
+        
+        .profile-header {
+            padding: 24px;
+            flex-direction: row;
+        }
+        
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+        }
+        
+        .profile-stats {
+            flex-direction: row;
+            gap: 16px;
+        }
+        
+        .profile-content {
+            grid-template-columns: 2fr 1fr;
+        }
+    }
+
+    /* Поддержка сетчатки/высокой плотности */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .profile-avatar img,
+        .nav-links img {
+            image-rendering: -webkit-optimize-contrast;
+        }
+    }
+
+    /*  Доступность для тач-устройств */
+    @media (hover: none) and (pointer: coarse) {
+        .nav-links a,
+        .btn,
+        .tab-btn,
+        .booking-card {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .btn {
+            padding: 14px 20px;
+            font-size: 1rem;
+        }
+        
+        .tab-btn {
+            padding: 12px 18px;
+        }
+    }
+
+    /* Предпочтение уменьшенного движения */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
     }
 </style>
 </head>
@@ -471,8 +1018,8 @@
         <nav>
             <ul class="nav-links" id="navLinks">
                 <li><a href="about.html"><img src="img/icon-aboutus.jpg" class="icon" alt="О нас">О нас</a></li>
-                <li></li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование"> Бронирование</a></li>
-                <li></li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
+                <li><a href="booking.html"><img src="img/icon-booking.jpg" class="icon" alt="Бронирование"> Бронирование</a></li>
+                <li><a href="sales.html"><img src="img/icon-sale.jpg" class="icon" alt="Акции"> Акции</a></li>
             </ul>
         </nav>
         <div class="auth-buttons">
