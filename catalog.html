@@ -285,18 +285,23 @@
             box-shadow: 0 8px 24px rgba(44, 95, 45, 0.15);
         }
         .book-cover-wrapper {
-            position: relative;
-            width: 100%;
-            background: #FAF6E8;
+            width: 250px;
+            flex-shrink: 0;
             padding: 15px;
+            display: flex;
+            align-items: center;
+
         }
         .book-cover-image {
-            width: 100%;
+                width: 100%;
+            height: 100%;
             aspect-ratio: 2/3;
             object-fit: cover;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: block;
         }
+
         .badge-status {
             position: absolute;
             top: 20px;
@@ -379,6 +384,105 @@
             background: #97BC62;
             transform: scale(1.05);
         }
+
+        /* Сетка карточек книг */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+/* Карточка книги */
+.book-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Контейнер обложки - ФИКСИРОВАННАЯ ВЫСОТА */
+.book-cover {
+    width: 100%;
+    height: 400px; /* Одинаковая высота для всех обложек */
+    overflow: hidden;
+    position: relative;
+}
+
+/* Изображение обложки */
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заполняет контейнер, обрезая лишнее */
+    object-position: center;
+}
+
+/* Бейдж статуса */
+.book-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #2d5a3d;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Информация о книге */
+.book-info {
+    padding: 20px;
+}
+
+.book-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #2d5a3d;
+}
+
+.book-author {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.book-description {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.book-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-rating {
+    font-weight: bold;
+    color: #2d5a3d;
+}
+
+.btn-book {
+    background: #2d5a3d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-book:hover {
+    background: #1e3d29;
+}
 
         /* Счётчик найденных книг */
         .books-counter {
@@ -914,8 +1018,8 @@
                 </ul>
             </nav>
             <div class="auth-buttons">
-                <a href="profile.html" class="btn-login">Профиль</a>
-            </div>
+            <a href="profile.html" class="btn-login"><img src="img/icon-user.png" class="icon" style="filter: brightness(0) invert(1);" alt="Кабинет"> Личный кабинет</a>
+        </div>
         </div>
     </header>
 
